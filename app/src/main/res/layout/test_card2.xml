@@ -1,0 +1,67 @@
+<android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_view"
+    android:layout_gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="5dp"
+    android:layout_margin="8dp"
+    android:gravity="center_horizontal"
+    android:padding="25dp">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/food"
+                android:id="@+id/offer_image"
+                android:layout_width="match_parent"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:layout_height="200dp" />
+            <ImageView
+                android:src="@drawable/companylogo"
+                android:translationZ="20dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_below="@id/offer_image"
+                android:layout_centerHorizontal="true"
+                android:paddingBottom="8dp"/>
+        </RelativeLayout>
+        <include layout="@layout/star_rating"/>
+        <TextView
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:textSize="40dp"
+            android:textColor="@color/bel_red_text"
+            android:textStyle="bold"
+            android:gravity="center_horizontal"
+            tools:text="30% off"
+            android:id="@+id/offer_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textStyle="bold"
+            android:gravity="center_horizontal"
+            android:text="Big Bite Hot Dogs"
+            android:id="@+id/restaurant_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/bel_grey_text"
+            android:textSize="18dp" />
+        <TextView
+            android:textSize="20dp"
+            android:paddingBottom="8dp"
+            android:gravity="center_horizontal"
+            android:text="700 Swanston St, Carlton"
+            android:id="@+id/address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/bel_lightgrey_text"
+            />
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

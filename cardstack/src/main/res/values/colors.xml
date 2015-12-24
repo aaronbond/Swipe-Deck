@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+
+    <color name="bel_red_text">#F37B61</color>
+    <color name="bel_grey_text">#4A4C54</color>
+    <color name="bel_lightgrey_text">#72747A</color>
+    <color name="background_material_light">#f4f5f9</color>
+</resources>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item >
+        <shape
+            android:shape="rectangle">
+            <solid android:color="@android:color/darker_gray" />
+            <corners android:radius="5dp"/>
+        </shape>
+    </item>
+    <item android:right="1dp" android:left="1dp" android:bottom="2dp">
+        <shape
+            android:shape="rectangle">
+            <solid android:color="@android:color/white"/>
+            <corners android:radius="5dp"/>
+        </shape>
+    </item>
+</layer-list>
+<!--<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:bottom="18dp">
+        <shape  android:shape="rectangle">
+            <solid android:color="#FFFFFF" />
+            <corners android:radius="7dp" />
+        </shape>
+    </item>
+</layer-list>-->
+
+
+
+
+    <!--    &lt;!&ndash; bottom sheet &ndash;&gt;
+        <item android:bottom="6dp">
+            <shape  android:shape="rectangle">
+                <solid android:color="#aaa" />
+                <corners android:radius="7dp" />
+            </shape>
+        </item>
+        &lt;!&ndash; middle sheet &ndash;&gt;
+        <item android:bottom="12dp">
+            <shape  android:shape="rectangle">
+                <solid android:color="#ccc" />
+                <corners android:radius="7dp" />
+            </shape>
+        </item>-->
+    <!-- White Top sheet -->
