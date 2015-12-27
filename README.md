@@ -1,6 +1,29 @@
 # Swipe-Deck
 ## A Tinder style Swipeable deck view for Android
 
+## Installation
+
+First add this maven repository to your app's gradle file:
+
+```groovy
+    repositories{
+        maven {
+            url = "https://dl.bintray.com/aaronbond/maven"
+        }
+    }
+```
+Then in your dependecies section add this parameter:
+
+```groovy
+dependencies {
+    compile 'com.daprlabs.aaron:cardstack:0.0.3'
+}
+
+```
+
+I will put the package up on Jcenter eventually
+
+
 ## Example 
 
 Start by defining a card view, this can be made in the normal way in XML:
@@ -161,10 +184,18 @@ Now we simply give our card deck an adapter and perhaps a callback from our Acti
 # Deck Attributes
 
 ```
- "max_visible" - Integer, number of cards rendered in the deck
+"max_visible" - Integer, number of cards rendered in the deck
 "rotation_degrees" - Float, degree of tilt offset as the card moves left / right
 "card_spacing" - Float, amount to offset each card on the Y axis
 "render_above" - Boolean, render the cards above other views in the layout
 "render_below" - Boolean, render the cards below other views in the layout
 		
 ```
+
+# TODO
+Lots of optimisation work
+Plenty of features left to add
+
+# Addendum
+
+Feel free to contact me or log an issue if there's something broken or missing. I'd be happy to fix it up. This is currently very early work and you should fully expect some issues I have yet to spot. 
