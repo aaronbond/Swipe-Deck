@@ -1,6 +1,8 @@
 package com.daprlabs.cardstack;
 
 import android.animation.Animator;
+import android.support.v4.view.ViewCompat;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +12,7 @@ import android.view.animation.OvershootInterpolator;
 /**
  * Created by aaron on 4/12/2015.
  */
-public class SwipeListener implements View.OnTouchListener {
+public class SwipeListener implements View.OnTouchListener, View.OnClickListener {
 
     private float ROTATION_DEGREES = 15f;
     private float initialX;
@@ -34,9 +36,11 @@ public class SwipeListener implements View.OnTouchListener {
         this.callback = callback;
         this.parent = (ViewGroup)card.getParent();
         this.parentWidth = parent.getWidth();
+        this.card.setOnClickListener(this);
     }
 
-    public SwipeListener(View card, SwipeCallback callback, float initialX, float initialY, float rotation){
+
+    public SwipeListener(View card, final SwipeCallback callback, float initialX, float initialY, float rotation){
         this.card = card;
         this.initialX = initialX;
         this.initialY = initialY;
@@ -44,10 +48,12 @@ public class SwipeListener implements View.OnTouchListener {
         this.parent = (ViewGroup)card.getParent();
         this.parentWidth = parent.getWidth();
         this.ROTATION_DEGREES = rotation;
+        this.card.setOnClickListener(this);
     }
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+
         if (deactivated) return false;
         switch(event.getAction() & MotionEvent.ACTION_MASK){
 
@@ -95,13 +101,12 @@ public class SwipeListener implements View.OnTouchListener {
                 //card position
                 checkCardForEvent();
                 break;
+
             default:
                 return false;
         }
-        return true;
+        return false;
     }
-
-
 
     private void checkCardForEvent(){
 
@@ -192,6 +197,11 @@ public class SwipeListener implements View.OnTouchListener {
                 .x(parent.getWidth())
                 .y(0)
                 .rotation(30);
+    }
+
+    @Override
+    public void onClick(View v) {
+        callback.cardClicked();
     }
 
 

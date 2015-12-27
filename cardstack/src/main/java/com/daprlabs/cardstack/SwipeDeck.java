@@ -32,6 +32,8 @@ public class SwipeDeck extends FrameLayout {
     private int paddingTop;
     private int paddingBottom;
 
+    private SwipeEventCallback eventCallback;
+
     /**
      * The adapter with all the data
      */
@@ -144,6 +146,11 @@ public class SwipeDeck extends FrameLayout {
         removeView(child);
         // Record that this view was removed so that the next call to addNextCard can reuse it.
         lastRemovedView = child;
+
+        //if there are no more children left after top card removal let the callback know
+        if(getChildCount() <= 0 && eventCallback != null){
+            eventCallback.cardsDepleted();
+        }
     }
 
     private void addNextCard() {
@@ -153,6 +160,9 @@ public class SwipeDeck extends FrameLayout {
             // ... don't remove and add to this instance: don't call removeView & addView in sequence.
             View newBottomChild = mAdapter.getView(nextAdapterCard, null/*lastRemovedView*/, this);
             this.lastRemovedView = null;
+
+            //set the initial Y value so card appears from under the deck
+            newBottomChild.setY(paddingTop);
             addAndMeasureChild(newBottomChild);
             nextAdapterCard++;
         }
@@ -255,19 +265,32 @@ public class SwipeDeck extends FrameLayout {
                 public void cardSwipedLeft() {
                     removeTopCard();
                     addNextCard();
+                    if(eventCallback != null)eventCallback.cardSwipedLeft();
                 }
 
                 @Override
                 public void cardSwipedRight() {
                     removeTopCard();
                     addNextCard();
+                    if(eventCallback != null)eventCallback.cardSwipedRight();
                 }
 
                 @Override
                 public void cardClicked() {
-                    Log.i(TAG, "on-clicked");
+                    if(eventCallback != null)eventCallback.cardClicked();
                 }
             }, initialX, initialY, ROTATION_DEGREES));
         }
+    }
+
+    public void setEventCallback(SwipeEventCallback eventCallback) {
+        this.eventCallback = eventCallback;
+    }
+
+    private interface SwipeEventCallback {
+        void cardSwipedLeft();
+        void cardSwipedRight();
+        void cardClicked();
+        void cardsDepleted();
     }
 }
