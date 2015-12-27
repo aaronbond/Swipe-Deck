@@ -1,7 +1,7 @@
 # Swipe-Deck
 ## A Tinder style Swipeable deck view for Android
 
-![alt tag](https://gfycat.com/AgreeableEvenHeterodontosaurus)
+![Screenshot](https://gfycat.com/AgreeableEvenHeterodontosaurus)
 
 ## Installation
 
