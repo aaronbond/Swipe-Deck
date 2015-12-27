@@ -6,13 +6,13 @@
 First add this maven repository to your app's gradle file:
 
 ```groovy
-    repositories{
-        maven {
-            url = "https://dl.bintray.com/aaronbond/maven"
-        }
-    }
+repositories{
+maven {
+    url = "https://dl.bintray.com/aaronbond/maven"
+}
+}
 ```
-Then in your dependecies section add this parameter:
+Then in your dependencies section add this parameter:
 
 ```groovy
 dependencies {
