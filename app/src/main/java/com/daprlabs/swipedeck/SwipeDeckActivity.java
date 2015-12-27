@@ -3,6 +3,7 @@ package com.daprlabs.swipedeck;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,23 +12,19 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.daprlabs.cardstack.SwipeDeck;
-import com.daprlabs.cardstack.SwipeFrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SwipeDeckActivity extends AppCompatActivity {
 
-    private SwipeDeck container;
-    private SwipeFrameLayout x;
+    private SwipeDeck cardStack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swipe_deck);
-        x = new SwipeFrameLayout(this);
-
-        container = (SwipeDeck) findViewById(R.id.swipe_deck);
+        cardStack = (SwipeDeck) findViewById(R.id.swipe_deck);
 
         ArrayList<String> testData = new ArrayList<>();
         testData.add("1");
@@ -57,7 +54,29 @@ public class SwipeDeckActivity extends AppCompatActivity {
         testData.add("5");
 
         SwipeDeckAdapter adapter = new SwipeDeckAdapter(testData, this);
-        container.setAdapter(adapter);
+        cardStack.setAdapter(adapter);
+
+        cardStack.setEventCallback(new SwipeDeck.SwipeEventCallback() {
+            @Override
+            public void cardSwipedLeft() {
+                Log.i("MainActivity", "card was swiped left");
+            }
+
+            @Override
+            public void cardSwipedRight() {
+                Log.i("MainActivity", "card was swiped right");
+            }
+
+            @Override
+            public void cardClicked() {
+                Log.i("MainActivity", "card was clicked");
+            }
+
+            @Override
+            public void cardsDepleted() {
+                Log.i("MainActivity", "no more cards");
+            }
+        });
 
     }
 

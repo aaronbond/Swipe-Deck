@@ -287,7 +287,7 @@ public class SwipeDeck extends FrameLayout {
         this.eventCallback = eventCallback;
     }
 
-    private interface SwipeEventCallback {
+    public interface SwipeEventCallback {
         void cardSwipedLeft();
         void cardSwipedRight();
         void cardClicked();
