@@ -1,8 +1,6 @@
 # Swipe-Deck
 ## A Tinder style Swipeable deck view for Android
 
-![Screenshot](https://gfycat.com/AgreeableEvenHeterodontosaurus)
-
 ## Installation
 
 First add this maven repository to your app's gradle file:
