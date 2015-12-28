@@ -23,6 +23,7 @@ public class SwipeListener implements View.OnTouchListener, View.OnClickListener
     private float initialYPress;
     private ViewGroup parent;
     private float parentWidth;
+    private int paddingLeft;
 
     private View card;
     SwipeCallback callback;
@@ -52,6 +53,7 @@ public class SwipeListener implements View.OnTouchListener, View.OnClickListener
         this.ROTATION_DEGREES = rotation;
         this.card.setOnClickListener(this);
         this.ALPHA_MAGNITUDE = magnitude;
+        this.paddingLeft = ((ViewGroup) card.getParent()).getPaddingLeft();
     }
 
 
@@ -102,11 +104,14 @@ public class SwipeListener implements View.OnTouchListener, View.OnClickListener
                 float rotation = ROTATION_DEGREES * 2.f * distobjectX / parentWidth;
                 card.setRotation(rotation);
 
-                float alpha = ((posX / parentWidth) * ALPHA_MAGNITUDE);
-                Log.i("alpha: ", Float.toString(alpha));
-                if(alpha > 1) alpha = 1;
-                if (rightView != null) rightView.setAlpha(alpha);
-                if (leftView != null) leftView.setAlpha(-alpha);
+                if (rightView != null && leftView != null){
+                    //set alpha of left and right image
+                    float alpha = (((posX - paddingLeft) / parentWidth) * ALPHA_MAGNITUDE );
+                    //Log.i("alpha: ", Float.toString(alpha));
+                    if(alpha > 1) alpha = 1;
+                    rightView.setAlpha(alpha);
+                    leftView.setAlpha(-alpha);
+                }
 
                 break;
 
