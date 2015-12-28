@@ -5,26 +5,13 @@
 
 ## Installation
 
-First add this maven repository to your app's gradle file:
-
-```groovy
-repositories{
-maven {
-    url = "https://dl.bintray.com/aaronbond/maven"
-}
-}
-```
-Then in your dependencies section add this parameter:
+In your dependencies section add this parameter:
 
 ```groovy
 dependencies {
     compile 'com.daprlabs.aaron:cardstack:0.0.3'
 }
-
 ```
-
-I will put the package up on Jcenter eventually
-
 
 ## Example 
 
@@ -183,20 +170,95 @@ Now we simply give our card deck an adapter and perhaps a callback from our Acti
     }
 ```
 
-# Deck Attributes
+# Deck XML Attributes
 
-```
-"max_visible" - Integer, number of cards rendered in the deck
-"rotation_degrees" - Float, degree of tilt offset as the card moves left / right
-"card_spacing" - Float, amount to offset each card on the Y axis
-"render_above" - Boolean, render the cards above other views in the layout
-"render_below" - Boolean, render the cards below other views in the layout
+```xml
+"max_visible" - (Integer) number of cards rendered in the deck
+
+"rotation_degrees" - (Float) degree of tilt offset as the card moves left / right
+
+"card_spacing" - (Float) amount to offset each card on the Y axis, 0 will put cards directly atop each other
+
+"render_above" - (Boolean) render the cards above other views in the layout
+
+"render_below" - (Boolean) render the cards below other views in the layout
+
+"opacity_end" - (Float) if using the left and right swipe image feature, range from 0 - 1, this is the point where your swipe
+images reach full opacity, for example 0.33 would mean full opacity when the card moves as far as 1/3 of the screen space 
 		
 ```
 
+# Features
+
+Easily design cards and deck container in XML and have cards render over the top (or underneath) elements in your layout
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<com.daprlabs.cardstack.SwipeFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:swipedeck="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.daprlabs.cardstack.SwipeDeck
+        android:id="@+id/swipe_deck"
+        android:layout_width="match_parent"
+        android:layout_height="480dp"
+        android:padding="40dp"
+        swipedeck:card_spacing="20"
+        swipedeck:max_visible="3"
+        swipedeck:render_above="true"
+        swipedeck:rotation_degrees="15"
+        swipedeck:opacity_end="0.33"/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:text="Button" />
+
+</com.daprlabs.cardstack.SwipeFrameLayout>
+
+```
+
+![Screenshot](http://i.imgur.com/bijdPhg.png?1)
+
+Indicator images for swiping left and right, simply add a left and right swipe view to your card layout and register their resource
+id with swipe deck:
+```xml
+            <ImageView
+                android:id="@+id/left_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/left_arrow"
+                android:layout_alignTop="@+id/imageView"
+                android:layout_toLeftOf="@+id/imageView"
+                android:layout_toStartOf="@+id/imageView" />
+            <ImageView
+                android:id="@+id/right_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/right_arrow"
+                android:layout_below="@+id/offer_image"
+                android:layout_toRightOf="@+id/imageView"
+                android:layout_toEndOf="@+id/imageView" />
+```
+
+```java
+        final SwipeDeckAdapter adapter = new SwipeDeckAdapter(testData, this);
+        cardStack.setAdapter(adapter);
+        
+        cardStack.setLeftImage(R.id.left_image);
+        cardStack.setRightImage(R.id.right_image);
+```
+
+![Screenshot](http://i.imgur.com/j1Npxpn.png?1)
+
 # TODO
 Lots of optimisation work
-Plenty of features left to add
+Plenty of features left to add (let me know if you think of any)
 
 # Addendum
 

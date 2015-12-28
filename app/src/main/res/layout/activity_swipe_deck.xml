@@ -15,7 +15,7 @@
         swipedeck:max_visible="3"
         swipedeck:render_above="true"
         swipedeck:rotation_degrees="15"
-        swipedeck:opacity_end="0.33"/>
+        swipedeck:opacity_end="0.2"/>
 
     <Button
         android:id="@+id/button"

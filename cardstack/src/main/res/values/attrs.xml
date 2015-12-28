@@ -7,7 +7,7 @@
         <attr name="card_spacing" format="float"/>
         <attr name="render_above" format="boolean"/>
         <attr name="render_below" format="boolean"/>
-        <attr name = "opacity_end" format="float"/>
+        <attr name="opacity_end" format="float"/>
         <attr name="card_gravity" format="enum">
             <enum name="top" value="0"/>
             <enum name="center" value="1"/>
