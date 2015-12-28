@@ -99,6 +99,17 @@ public class SwipeDeck extends FrameLayout {
             public void onChanged() {
                 super.onChanged();
                 //handle data set changes
+
+                //if we need to add any cards at this point (ie. the amount of cards on screen
+                //is less than the max number of cards to display) add the cards.
+                int childCount = getChildCount();
+                for (int i = childCount; i < NUMBER_OF_CARDS; ++i) {
+                    addNextCard();
+                }
+                //position the items correctly on screen
+                for (int i = 0; i < getChildCount(); ++i) {
+                    positionItem(i);
+                }
             }
         });
 

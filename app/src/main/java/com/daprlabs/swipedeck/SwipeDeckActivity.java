@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 
 import com.daprlabs.cardstack.SwipeDeck;
 
@@ -26,19 +27,14 @@ public class SwipeDeckActivity extends AppCompatActivity {
         setContentView(R.layout.activity_swipe_deck);
         cardStack = (SwipeDeck) findViewById(R.id.swipe_deck);
 
-        ArrayList<String> testData = new ArrayList<>();
-        testData.add("1");
-        testData.add("2");
-        testData.add("3");
-        testData.add("4");
-        testData.add("5");
+        final ArrayList<String> testData = new ArrayList<>();
         testData.add("1");
         testData.add("2");
         testData.add("3");
         testData.add("4");
         testData.add("5");
 
-        SwipeDeckAdapter adapter = new SwipeDeckAdapter(testData, this);
+        final SwipeDeckAdapter adapter = new SwipeDeckAdapter(testData, this);
         cardStack.setAdapter(adapter);
 
         cardStack.setEventCallback(new SwipeDeck.SwipeEventCallback() {
@@ -65,6 +61,15 @@ public class SwipeDeckActivity extends AppCompatActivity {
 
         cardStack.setLeftImage(R.id.left_image);
         cardStack.setRightImage(R.id.right_image);
+
+        Button btn = (Button) findViewById(R.id.button);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                testData.add("");
+                adapter.notifyDataSetChanged();
+            }
+        });
 
     }
 
