@@ -12,6 +12,11 @@ dependencies {
     compile 'com.daprlabs.aaron:cardstack:0.0.3'
 }
 ```
+Sync Gradle and import Swipe-Deck into your project
+
+```java
+import com.daprlabs.cardstack.SwipeDeck;
+```
 
 ## Example 
 
