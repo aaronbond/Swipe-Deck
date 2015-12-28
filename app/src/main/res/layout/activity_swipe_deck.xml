@@ -10,11 +10,12 @@
         android:id="@+id/swipe_deck"
         android:layout_width="match_parent"
         android:layout_height="480dp"
-        android:padding="20dp"
+        android:padding="40dp"
         swipedeck:card_spacing="20"
         swipedeck:max_visible="3"
         swipedeck:render_above="true"
-        swipedeck:rotation_degrees="15" />
+        swipedeck:rotation_degrees="15"
+        swipedeck:opacity_end="0.33"/>
 
     <Button
         android:layout_width="wrap_content"

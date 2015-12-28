@@ -23,7 +23,7 @@ public class SwipeDeck extends FrameLayout {
     private float CARD_SPACING;
     private boolean RENDER_ABOVE;
     private boolean RENDER_BELOW;
-    private float ALPHA_MAGNITUDE;
+    private float OPACITY_END;
     private int CARD_GRAVITY;
 
     private int paddingLeft;
@@ -60,7 +60,7 @@ public class SwipeDeck extends FrameLayout {
             RENDER_ABOVE = a.getBoolean(R.styleable.SwipeDeck_render_above, true);
             RENDER_BELOW = a.getBoolean(R.styleable.SwipeDeck_render_below, false);
             CARD_GRAVITY = a.getInt(R.styleable.SwipeDeck_card_gravity, 0);
-            ALPHA_MAGNITUDE = a.getFloat(R.styleable.SwipeDeck_alpha_magnitude, 3f);
+            OPACITY_END = a.getFloat(R.styleable.SwipeDeck_opacity_end, 0.33f);
         } finally {
             a.recycle();
         }
@@ -285,7 +285,7 @@ public class SwipeDeck extends FrameLayout {
                 public void cardClicked() {
                     if(eventCallback != null)eventCallback.cardClicked();
                 }
-            }, initialX, initialY, ROTATION_DEGREES, ALPHA_MAGNITUDE);
+            }, initialX, initialY, ROTATION_DEGREES, OPACITY_END);
 
 
             //if we specified these image resources, get the views and pass them to the swipe listener

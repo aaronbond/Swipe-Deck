@@ -14,7 +14,7 @@ import android.view.animation.OvershootInterpolator;
 public class SwipeListener implements View.OnTouchListener, View.OnClickListener {
 
     private float ROTATION_DEGREES = 15f;
-    private float ALPHA_MAGNITUDE = 3;
+    float OPACITY_END = 0.33f;
     private float initialX;
     private float initialY;
 
@@ -43,7 +43,7 @@ public class SwipeListener implements View.OnTouchListener, View.OnClickListener
     }
 
 
-    public SwipeListener(View card, final SwipeCallback callback, float initialX, float initialY, float rotation, float magnitude) {
+    public SwipeListener(View card, final SwipeCallback callback, float initialX, float initialY, float rotation, float opacityEnd) {
         this.card = card;
         this.initialX = initialX;
         this.initialY = initialY;
@@ -52,7 +52,7 @@ public class SwipeListener implements View.OnTouchListener, View.OnClickListener
         this.parentWidth = parent.getWidth();
         this.ROTATION_DEGREES = rotation;
         this.card.setOnClickListener(this);
-        this.ALPHA_MAGNITUDE = magnitude;
+        this.OPACITY_END = opacityEnd;
         this.paddingLeft = ((ViewGroup) card.getParent()).getPaddingLeft();
     }
 
@@ -98,7 +98,6 @@ public class SwipeListener implements View.OnTouchListener, View.OnClickListener
                 card.setX(posX);
                 card.setY(posY);
 
-
                 //card.setRotation
                 float distobjectX = posX - initialX;
                 float rotation = ROTATION_DEGREES * 2.f * distobjectX / parentWidth;
@@ -106,9 +105,9 @@ public class SwipeListener implements View.OnTouchListener, View.OnClickListener
 
                 if (rightView != null && leftView != null){
                     //set alpha of left and right image
-                    float alpha = (((posX - paddingLeft) / parentWidth) * ALPHA_MAGNITUDE );
+                    float alpha = (((posX - paddingLeft) / (parentWidth * OPACITY_END)));
+                    //float alpha = (((posX - paddingLeft) / parentWidth) * ALPHA_MAGNITUDE );
                     //Log.i("alpha: ", Float.toString(alpha));
-                    if(alpha > 1) alpha = 1;
                     rightView.setAlpha(alpha);
                     leftView.setAlpha(-alpha);
                 }
