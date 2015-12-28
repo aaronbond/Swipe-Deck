@@ -9,6 +9,7 @@
     android:layout_margin="8dp"
     android:gravity="center_horizontal"
     android:padding="25dp">
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -29,7 +30,25 @@
                 android:layout_height="100dp"
                 android:layout_below="@id/offer_image"
                 android:layout_centerHorizontal="true"
-                android:paddingBottom="8dp"/>
+                android:paddingBottom="8dp"
+                android:id="@+id/imageView" />
+
+            <ImageView
+                android:id="@+id/left_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/left_arrow"
+                android:layout_alignTop="@+id/imageView"
+                android:layout_toLeftOf="@+id/imageView"
+                android:layout_toStartOf="@+id/imageView" />
+            <ImageView
+                android:id="@+id/right_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/right_arrow"
+                android:layout_below="@+id/offer_image"
+                android:layout_toRightOf="@+id/imageView"
+                android:layout_toEndOf="@+id/imageView" />
         </RelativeLayout>
         <include layout="@layout/star_rating"/>
         <TextView

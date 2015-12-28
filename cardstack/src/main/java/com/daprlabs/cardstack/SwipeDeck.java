@@ -3,12 +3,10 @@ package com.daprlabs.cardstack;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.DataSetObserver;
-import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
@@ -25,6 +23,7 @@ public class SwipeDeck extends FrameLayout {
     private float CARD_SPACING;
     private boolean RENDER_ABOVE;
     private boolean RENDER_BELOW;
+    private float ALPHA_MAGNITUDE;
     private int CARD_GRAVITY;
 
     private int paddingLeft;
@@ -33,6 +32,7 @@ public class SwipeDeck extends FrameLayout {
     private int paddingBottom;
 
     private SwipeEventCallback eventCallback;
+    private CardPositionCallback cardPosCallback;
 
     /**
      * The adapter with all the data
@@ -41,6 +41,10 @@ public class SwipeDeck extends FrameLayout {
     private int nextAdapterCard = 0;
 
     private View lastRemovedView;
+    private SwipeListener swipeListener;
+    private View topCard;
+    private int leftImageResource;
+    private int rightImageResource;
 
     public SwipeDeck(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -56,6 +60,7 @@ public class SwipeDeck extends FrameLayout {
             RENDER_ABOVE = a.getBoolean(R.styleable.SwipeDeck_render_above, true);
             RENDER_BELOW = a.getBoolean(R.styleable.SwipeDeck_render_below, false);
             CARD_GRAVITY = a.getInt(R.styleable.SwipeDeck_card_gravity, 0);
+            ALPHA_MAGNITUDE = a.getFloat(R.styleable.SwipeDeck_alpha_magnitude, 3f);
         } finally {
             a.recycle();
         }
@@ -69,7 +74,6 @@ public class SwipeDeck extends FrameLayout {
 
         //make sure not to clip to padding
         setClipToPadding(false);
-
 
         //i don't think this does anything, doesn't seem to override parents clipping behaviour
         DisplayMetrics dm = getContext().getResources().getDisplayMetrics();
@@ -192,6 +196,11 @@ public class SwipeDeck extends FrameLayout {
         int itemWidth = getWidth() - (paddingLeft + paddingRight);
         int itemHeight = getHeight() - (paddingTop + paddingBottom);
         child.measure(MeasureSpec.EXACTLY | itemWidth, MeasureSpec.EXACTLY | itemHeight); //MeasureSpec.UNSPECIFIED
+
+        //ensure that if there's a left and right image set their alpha to 0 initially
+        //alpha animation is handled in the swipe listener
+        if(leftImageResource != 0) child.findViewById(leftImageResource).setAlpha(0);
+        if(rightImageResource != 0) child.findViewById(rightImageResource).setAlpha(0);
     }
 
     /**
@@ -247,10 +256,6 @@ public class SwipeDeck extends FrameLayout {
         setMeasuredDimension(width, height);
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-    }
 
     private void setupTopCard() {
         final View child = getChildAt(0);
@@ -260,7 +265,8 @@ public class SwipeDeck extends FrameLayout {
 
         if (child != null) {
             //make sure we have a card
-            child.setOnTouchListener(new SwipeListener(child, new SwipeListener.SwipeCallback() {
+
+            swipeListener = new SwipeListener(child, new SwipeListener.SwipeCallback() {
                 @Override
                 public void cardSwipedLeft() {
                     removeTopCard();
@@ -279,7 +285,19 @@ public class SwipeDeck extends FrameLayout {
                 public void cardClicked() {
                     if(eventCallback != null)eventCallback.cardClicked();
                 }
-            }, initialX, initialY, ROTATION_DEGREES));
+            }, initialX, initialY, ROTATION_DEGREES, ALPHA_MAGNITUDE);
+
+
+            //if we specified these image resources, get the views and pass them to the swipe listener
+            //for the sake of animating them
+            View rightView = null;
+            View leftView = null;
+            if(!(rightImageResource == 0)) rightView = child.findViewById(rightImageResource);
+            if(!(leftImageResource == 0)) leftView = child.findViewById(leftImageResource);
+            swipeListener.setLeftView(leftView);
+            swipeListener.setRightView(rightView);
+
+            child.setOnTouchListener(swipeListener);
         }
     }
 
@@ -287,10 +305,27 @@ public class SwipeDeck extends FrameLayout {
         this.eventCallback = eventCallback;
     }
 
+    public void setPositionCallback(CardPositionCallback callback){
+        cardPosCallback = callback;
+    }
+
+    public void setLeftImage(int imageResource){
+        leftImageResource = imageResource;
+    }
+
+    public void setRightImage(int imageResource){
+        rightImageResource = imageResource;
+    }
+
     public interface SwipeEventCallback {
         void cardSwipedLeft();
         void cardSwipedRight();
         void cardClicked();
         void cardsDepleted();
+    }
+
+    public interface CardPositionCallback {
+        void xPos(Float x);
+        void yPos(Float y);
     }
 }

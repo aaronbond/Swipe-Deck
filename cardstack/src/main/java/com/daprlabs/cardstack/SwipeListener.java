@@ -1,7 +1,6 @@
 package com.daprlabs.cardstack;
 
 import android.animation.Animator;
-import android.support.v4.view.ViewCompat;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,6 +14,7 @@ import android.view.animation.OvershootInterpolator;
 public class SwipeListener implements View.OnTouchListener, View.OnClickListener {
 
     private float ROTATION_DEGREES = 15f;
+    private float ALPHA_MAGNITUDE = 3;
     private float initialX;
     private float initialY;
 
@@ -27,6 +27,8 @@ public class SwipeListener implements View.OnTouchListener, View.OnClickListener
     private View card;
     SwipeCallback callback;
     private boolean deactivated;
+    private View rightView;
+    private View leftView;
 
 
     public SwipeListener(View card, SwipeCallback callback, float initialX, float initialY) {
@@ -40,7 +42,7 @@ public class SwipeListener implements View.OnTouchListener, View.OnClickListener
     }
 
 
-    public SwipeListener(View card, final SwipeCallback callback, float initialX, float initialY, float rotation) {
+    public SwipeListener(View card, final SwipeCallback callback, float initialX, float initialY, float rotation, float magnitude) {
         this.card = card;
         this.initialX = initialX;
         this.initialY = initialY;
@@ -49,6 +51,7 @@ public class SwipeListener implements View.OnTouchListener, View.OnClickListener
         this.parentWidth = parent.getWidth();
         this.ROTATION_DEGREES = rotation;
         this.card.setOnClickListener(this);
+        this.ALPHA_MAGNITUDE = magnitude;
     }
 
 
@@ -92,11 +95,19 @@ public class SwipeListener implements View.OnTouchListener, View.OnClickListener
 
                 card.setX(posX);
                 card.setY(posY);
-                //card.setRotation
 
+
+                //card.setRotation
                 float distobjectX = posX - initialX;
                 float rotation = ROTATION_DEGREES * 2.f * distobjectX / parentWidth;
                 card.setRotation(rotation);
+
+                float alpha = ((posX / parentWidth) * ALPHA_MAGNITUDE);
+                Log.i("alpha: ", Float.toString(alpha));
+                if(alpha > 1) alpha = 1;
+                if (rightView != null) rightView.setAlpha(alpha);
+                if (leftView != null) leftView.setAlpha(-alpha);
+
                 break;
 
             case MotionEvent.ACTION_UP:
@@ -118,54 +129,53 @@ public class SwipeListener implements View.OnTouchListener, View.OnClickListener
     private void checkCardForEvent() {
 
         if (cardBeyondLeftBorder()) {
-            animateOffScreenLeft().setListener(new Animator.AnimatorListener() {
+            animateOffScreenLeft()
+                    .setListener(new Animator.AnimatorListener() {
 
+                        @Override
+                        public void onAnimationStart(Animator animation) {
 
-                @Override
-                public void onAnimationStart(Animator animation) {
+                        }
 
-                }
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            callback.cardSwipedLeft();
+                        }
 
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    callback.cardSwipedLeft();
-                }
+                        @Override
+                        public void onAnimationCancel(Animator animation) {
 
-                @Override
-                public void onAnimationCancel(Animator animation) {
+                        }
 
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animation) {
-
-                }
-            });
+                        @Override
+                        public void onAnimationRepeat(Animator animation) {
+                        }
+                    });
             this.deactivated = true;
         } else if (cardBeyondRightBorder()) {
-            animateOffScreenRight().setListener(new Animator.AnimatorListener() {
+            animateOffScreenRight()
+                    .setListener(new Animator.AnimatorListener() {
 
+                        @Override
+                        public void onAnimationStart(Animator animation) {
 
-                @Override
-                public void onAnimationStart(Animator animation) {
+                        }
 
-                }
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            callback.cardSwipedRight();
+                        }
 
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    callback.cardSwipedRight();
-                }
+                        @Override
+                        public void onAnimationCancel(Animator animation) {
 
-                @Override
-                public void onAnimationCancel(Animator animation) {
+                        }
 
-                }
+                        @Override
+                        public void onAnimationRepeat(Animator animation) {
 
-                @Override
-                public void onAnimationRepeat(Animator animation) {
-
-                }
-            });
+                        }
+                    });
             this.deactivated = true;
         } else {
             resetCardPosition();
@@ -183,6 +193,8 @@ public class SwipeListener implements View.OnTouchListener, View.OnClickListener
     }
 
     private ViewPropertyAnimator resetCardPosition() {
+        if(rightView!=null)rightView.setAlpha(0);
+        if(leftView!=null)leftView.setAlpha(0);
         return card.animate()
                 .setDuration(200)
                 .setInterpolator(new OvershootInterpolator(1.5f))
@@ -212,6 +224,13 @@ public class SwipeListener implements View.OnTouchListener, View.OnClickListener
         callback.cardClicked();
     }
 
+    public void setRightView(View image) {
+        this.rightView = image;
+    }
+
+    public void setLeftView(View image) {
+        this.leftView = image;
+    }
 
     public interface SwipeCallback {
         void cardSwipedLeft();

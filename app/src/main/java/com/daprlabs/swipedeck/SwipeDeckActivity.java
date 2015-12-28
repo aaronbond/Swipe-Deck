@@ -37,21 +37,6 @@ public class SwipeDeckActivity extends AppCompatActivity {
         testData.add("3");
         testData.add("4");
         testData.add("5");
-        testData.add("1");
-        testData.add("2");
-        testData.add("3");
-        testData.add("4");
-        testData.add("5");
-        testData.add("1");
-        testData.add("2");
-        testData.add("3");
-        testData.add("4");
-        testData.add("5");
-        testData.add("1");
-        testData.add("2");
-        testData.add("3");
-        testData.add("4");
-        testData.add("5");
 
         SwipeDeckAdapter adapter = new SwipeDeckAdapter(testData, this);
         cardStack.setAdapter(adapter);
@@ -78,6 +63,9 @@ public class SwipeDeckActivity extends AppCompatActivity {
             }
         });
 
+        cardStack.setLeftImage(R.id.left_image);
+        cardStack.setRightImage(R.id.right_image);
+
     }
 
     @Override
@@ -101,7 +89,6 @@ public class SwipeDeckActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 
     public class SwipeDeckAdapter extends BaseAdapter {
 
@@ -132,7 +119,7 @@ public class SwipeDeckActivity extends AppCompatActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
 
             View v = convertView;
-            if(v == null){
+            if (v == null) {
                 LayoutInflater inflater = getLayoutInflater();
                 // normally use a viewholder
                 v = inflater.inflate(R.layout.test_card2, parent, false);
