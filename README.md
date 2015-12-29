@@ -188,8 +188,9 @@ Now we simply give our card deck an adapter and perhaps a callback from our Acti
 
 "render_below" - (Boolean) render the cards below other views in the layout
 
-"opacity_end" - (Float) if using the left and right swipe image feature, range from 0 - 1, this is the point where your swipe
-images reach full opacity, for example 0.33 would mean full opacity when the card moves as far as 1/3 of the screen space 
+"opacity_end" - (Float) if using the left and right swipe image feature, range from 0 - 1,
+ this is the point where your swipe images reach full opacity, for example 0.33 would mean
+ full opacity when the card moves as far as 1/3 of the screen space left or right
 		
 ```
 
@@ -268,3 +269,4 @@ Plenty of features left to add (let me know if you think of any)
 # Addendum
 
 Feel free to contact me or log an issue if there's something broken or missing. I'd be happy to fix it up. This is currently very early work and you should fully expect some issues I have yet to spot. 
+currently requires minSdkVersion 14, i haven't tested it but should easily support all the way back to sdk 12. If for some reason people want that let me know and i'll release a version.
