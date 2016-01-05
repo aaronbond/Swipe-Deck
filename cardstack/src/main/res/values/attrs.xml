@@ -4,7 +4,7 @@
     <declare-styleable name="SwipeDeck">
         <attr name="max_visible" format="integer"/>
         <attr name="rotation_degrees" format="float"/>
-        <attr name="card_spacing" format="float"/>
+        <attr name="card_spacing" format="dimension"/>
         <attr name="render_above" format="boolean"/>
         <attr name="render_below" format="boolean"/>
         <attr name="opacity_end" format="float"/>

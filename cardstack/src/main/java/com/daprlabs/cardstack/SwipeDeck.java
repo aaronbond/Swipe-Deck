@@ -56,7 +56,7 @@ public class SwipeDeck extends FrameLayout {
         try {
             NUMBER_OF_CARDS = a.getInt(R.styleable.SwipeDeck_max_visible, 3);
             ROTATION_DEGREES = a.getFloat(R.styleable.SwipeDeck_rotation_degrees, 15f);
-            CARD_SPACING = a.getFloat(R.styleable.SwipeDeck_card_spacing, 15f);
+            CARD_SPACING = a.getDimension(R.styleable.SwipeDeck_card_spacing, 15f);
             RENDER_ABOVE = a.getBoolean(R.styleable.SwipeDeck_render_above, true);
             RENDER_BELOW = a.getBoolean(R.styleable.SwipeDeck_render_below, false);
             CARD_GRAVITY = a.getInt(R.styleable.SwipeDeck_card_gravity, 0);
