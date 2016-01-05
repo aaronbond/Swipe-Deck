@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="480dp"
         android:padding="40dp"
-        swipedeck:card_spacing="20"
+        swipedeck:card_spacing="10dp"
         swipedeck:max_visible="3"
         swipedeck:render_above="true"
         swipedeck:rotation_degrees="15"
