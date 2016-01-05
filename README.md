@@ -9,7 +9,7 @@ In your dependencies section add this parameter:
 
 ```groovy
 dependencies {
-    compile 'com.daprlabs.aaron:cardstack:0.0.6'
+    compile 'com.daprlabs.aaron:cardstack:0.0.7'
 }
 ```
 Sync Gradle and import Swipe-Deck into your project
@@ -115,7 +115,7 @@ Now we add a swipe deck to our layout:
         android:layout_width="match_parent"
         android:layout_height="480dp"
         android:padding="20dp"
-        swipedeck:card_spacing="20"
+        swipedeck:card_spacing="10dp"
         swipedeck:max_visible="3"
         swipedeck:render_above="true"
         swipedeck:rotation_degrees="15" />
@@ -182,7 +182,7 @@ Now we simply give our card deck an adapter and perhaps a callback from our Acti
 
 "rotation_degrees" - (Float) degree of tilt offset as the card moves left / right
 
-"card_spacing" - (Float) amount to offset each card on the Y axis, 0 will put cards directly atop each other
+"card_spacing" - (Dimension) amount to offset each card on the Y axis, 0dp will put cards directly atop each other (dp, px etc)
 
 "render_above" - (Boolean) render the cards above other views in the layout
 
@@ -212,7 +212,7 @@ Easily design cards and deck container in XML and have cards render over the top
         android:layout_width="match_parent"
         android:layout_height="480dp"
         android:padding="40dp"
-        swipedeck:card_spacing="20"
+        swipedeck:card_spacing="10dp"
         swipedeck:max_visible="3"
         swipedeck:render_above="true"
         swipedeck:rotation_degrees="15"
