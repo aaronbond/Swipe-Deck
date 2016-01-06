@@ -52,7 +52,8 @@ public class SwipeDeckActivity extends AppCompatActivity {
             public void cardClicked(int position) {
                 Log.i("MainActivity", "card was clicked, position in adapter: " + position);
                 //example of how to get the item that was clicked / swiped / etc
-                Log.i("MainActivity", (String)adapter.getItem(position));
+                String item = (String)adapter.getItem(position);
+                Log.i("MainActivity", item);
             }
 
             @Override

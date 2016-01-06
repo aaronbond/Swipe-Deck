@@ -9,7 +9,7 @@ In your dependencies section add this parameter:
 
 ```groovy
 dependencies {
-    compile 'com.daprlabs.aaron:cardstack:0.0.7'
+    compile 'com.daprlabs.aaron:cardstack:0.1.0'
 }
 ```
 Sync Gradle and import Swipe-Deck into your project
@@ -140,30 +140,33 @@ Now we simply give our card deck an adapter and perhaps a callback from our Acti
         setContentView(R.layout.activity_swipe_deck);
         cardStack = (SwipeDeck) findViewById(R.id.swipe_deck);
 
-        ArrayList<String> testData = new ArrayList<>();
+        final ArrayList<String> testData = new ArrayList<>();
+        testData.add("0");
         testData.add("1");
         testData.add("2");
         testData.add("3");
         testData.add("4");
-        testData.add("5");
 
-        SwipeDeckAdapter adapter = new SwipeDeckAdapter(testData, this);
+        final SwipeDeckAdapter adapter = new SwipeDeckAdapter(testData, this);
         cardStack.setAdapter(adapter);
-        
+
         cardStack.setEventCallback(new SwipeDeck.SwipeEventCallback() {
             @Override
-            public void cardSwipedLeft() {
-                Log.i("MainActivity", "card was swiped left");
+            public void cardSwipedLeft(int position) {
+                Log.i("MainActivity", "card was swiped left, position in adapter: " + position);
             }
 
             @Override
-            public void cardSwipedRight() {
-                Log.i("MainActivity", "card was swiped right");
+            public void cardSwipedRight(int position) {
+                Log.i("MainActivity", "card was swiped right, position in adapter: " + position);
             }
 
             @Override
-            public void cardClicked() {
-                Log.i("MainActivity", "card was clicked");
+            public void cardClicked(int position) {
+                Log.i("MainActivity", "card was clicked, position in adapter: " + position);
+                //example of how to get the item that was clicked / swiped / etc
+                String item = (String)adapter.getItem(position);
+                Log.i("MainActivity", item);
             }
 
             @Override
@@ -172,7 +175,6 @@ Now we simply give our card deck an adapter and perhaps a callback from our Acti
             }
         });
 
-    }
 ```
 
 # Deck XML Attributes
