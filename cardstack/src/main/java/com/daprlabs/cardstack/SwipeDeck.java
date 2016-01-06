@@ -288,7 +288,6 @@ public class SwipeDeck extends FrameLayout {
                     if(eventCallback != null)eventCallback.cardSwipedLeft(pos);
                     addNextCard();
                 }
-
                 @Override
                 public void cardSwipedRight() {
                     removeTopCard();
@@ -296,10 +295,6 @@ public class SwipeDeck extends FrameLayout {
                     if(eventCallback != null)eventCallback.cardSwipedRight(pos);
                 }
 
-                @Override
-                public void cardClicked() {
-                    if(eventCallback != null)eventCallback.cardClicked(pos);
-                }
             }, initialX, initialY, ROTATION_DEGREES, OPACITY_END);
 
 
@@ -336,7 +331,6 @@ public class SwipeDeck extends FrameLayout {
         //returning the object position in the adapter
         void cardSwipedLeft(int position);
         void cardSwipedRight(int position);
-        void cardClicked(int position);
         void cardsDepleted();
     }
 

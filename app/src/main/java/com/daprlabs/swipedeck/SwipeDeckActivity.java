@@ -49,17 +49,10 @@ public class SwipeDeckActivity extends AppCompatActivity {
             }
 
             @Override
-            public void cardClicked(int position) {
-                Log.i("MainActivity", "card was clicked, position in adapter: " + position);
-                //example of how to get the item that was clicked / swiped / etc
-                String item = (String)adapter.getItem(position);
-                Log.i("MainActivity", item);
-            }
-
-            @Override
             public void cardsDepleted() {
                 Log.i("MainActivity", "no more cards");
             }
+
         });
 
         cardStack.setLeftImage(R.id.left_image);
@@ -123,7 +116,7 @@ public class SwipeDeckActivity extends AppCompatActivity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
 
             View v = convertView;
             if (v == null) {
@@ -133,6 +126,13 @@ public class SwipeDeckActivity extends AppCompatActivity {
             }
             //((TextView) v.findViewById(R.id.textView2)).setText(data.get(position));
 
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String item = (String)getItem(position);
+                    Log.i("MainActivity", item);
+                }
+            });
             return v;
         }
     }

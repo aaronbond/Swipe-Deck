@@ -11,7 +11,7 @@ import android.view.animation.OvershootInterpolator;
 /**
  * Created by aaron on 4/12/2015.
  */
-public class SwipeListener implements View.OnTouchListener, View.OnClickListener {
+public class SwipeListener implements View.OnTouchListener {
 
     private float ROTATION_DEGREES = 15f;
     float OPACITY_END = 0.33f;
@@ -39,7 +39,6 @@ public class SwipeListener implements View.OnTouchListener, View.OnClickListener
         this.callback = callback;
         this.parent = (ViewGroup) card.getParent();
         this.parentWidth = parent.getWidth();
-        this.card.setOnClickListener(this);
     }
 
 
@@ -51,7 +50,6 @@ public class SwipeListener implements View.OnTouchListener, View.OnClickListener
         this.parent = (ViewGroup) card.getParent();
         this.parentWidth = parent.getWidth();
         this.ROTATION_DEGREES = rotation;
-        this.card.setOnClickListener(this);
         this.OPACITY_END = opacityEnd;
         this.paddingLeft = ((ViewGroup) card.getParent()).getPaddingLeft();
     }
@@ -223,11 +221,6 @@ public class SwipeListener implements View.OnTouchListener, View.OnClickListener
                 .rotation(30);
     }
 
-    @Override
-    public void onClick(View v) {
-        callback.cardClicked();
-    }
-
     public void setRightView(View image) {
         this.rightView = image;
     }
@@ -238,9 +231,6 @@ public class SwipeListener implements View.OnTouchListener, View.OnClickListener
 
     public interface SwipeCallback {
         void cardSwipedLeft();
-
         void cardSwipedRight();
-
-        void cardClicked();
     }
 }
