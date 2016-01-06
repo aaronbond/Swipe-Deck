@@ -182,7 +182,7 @@ public class SwipeDeck extends FrameLayout {
             nextAdapterCard++;
         }
         setZTranslations();
-        setupTopCard();
+        setupTopCard(nextAdapterCard);
     }
 
     private void setZTranslations() {
@@ -191,7 +191,6 @@ public class SwipeDeck extends FrameLayout {
             ViewCompat.setTranslationZ(getChildAt(i), 10 - i);
         }
     }
-
 
     /**
      * Adds a view as a child view and takes care of measuring it
@@ -268,9 +267,14 @@ public class SwipeDeck extends FrameLayout {
     }
 
 
-    private void setupTopCard() {
+    private void setupTopCard(final int cardPosition) {
         final View child = getChildAt(0);
 
+        //this calculation is to get the correct position in the adapter of the current top card
+        //the card position on setup top card is currently always the bottom card in the view
+        //at any given time.
+        int childCount = getChildCount();
+        final int pos = cardPosition - childCount;
         int initialX = paddingLeft;
         int initialY = paddingTop;
 
@@ -281,20 +285,20 @@ public class SwipeDeck extends FrameLayout {
                 @Override
                 public void cardSwipedLeft() {
                     removeTopCard();
+                    if(eventCallback != null)eventCallback.cardSwipedLeft(pos);
                     addNextCard();
-                    if(eventCallback != null)eventCallback.cardSwipedLeft();
                 }
 
                 @Override
                 public void cardSwipedRight() {
                     removeTopCard();
                     addNextCard();
-                    if(eventCallback != null)eventCallback.cardSwipedRight();
+                    if(eventCallback != null)eventCallback.cardSwipedRight(pos);
                 }
 
                 @Override
                 public void cardClicked() {
-                    if(eventCallback != null)eventCallback.cardClicked();
+                    if(eventCallback != null)eventCallback.cardClicked(pos);
                 }
             }, initialX, initialY, ROTATION_DEGREES, OPACITY_END);
 
@@ -329,9 +333,10 @@ public class SwipeDeck extends FrameLayout {
     }
 
     public interface SwipeEventCallback {
-        void cardSwipedLeft();
-        void cardSwipedRight();
-        void cardClicked();
+        //returning the object position in the adapter
+        void cardSwipedLeft(int position);
+        void cardSwipedRight(int position);
+        void cardClicked(int position);
         void cardsDepleted();
     }
 

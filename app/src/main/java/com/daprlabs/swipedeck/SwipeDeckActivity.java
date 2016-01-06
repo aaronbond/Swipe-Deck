@@ -28,29 +28,31 @@ public class SwipeDeckActivity extends AppCompatActivity {
         cardStack = (SwipeDeck) findViewById(R.id.swipe_deck);
 
         final ArrayList<String> testData = new ArrayList<>();
+        testData.add("0");
         testData.add("1");
         testData.add("2");
         testData.add("3");
         testData.add("4");
-        testData.add("5");
 
         final SwipeDeckAdapter adapter = new SwipeDeckAdapter(testData, this);
         cardStack.setAdapter(adapter);
 
         cardStack.setEventCallback(new SwipeDeck.SwipeEventCallback() {
             @Override
-            public void cardSwipedLeft() {
-                Log.i("MainActivity", "card was swiped left");
+            public void cardSwipedLeft(int position) {
+                Log.i("MainActivity", "card was swiped left, position in adapter: " + position);
             }
 
             @Override
-            public void cardSwipedRight() {
-                Log.i("MainActivity", "card was swiped right");
+            public void cardSwipedRight(int position) {
+                Log.i("MainActivity", "card was swiped right, position in adapter: " + position);
             }
 
             @Override
-            public void cardClicked() {
-                Log.i("MainActivity", "card was clicked");
+            public void cardClicked(int position) {
+                Log.i("MainActivity", "card was clicked, position in adapter: " + position);
+                //example of how to get the item that was clicked / swiped / etc
+                Log.i("MainActivity", (String)adapter.getItem(position));
             }
 
             @Override
@@ -66,11 +68,10 @@ public class SwipeDeckActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                testData.add("");
+                testData.add("a sample object. in this case a string.");
                 adapter.notifyDataSetChanged();
             }
         });
-
     }
 
     @Override
