@@ -93,6 +93,15 @@ Next Swipe Deck takes an adapter just like you're used to with other adapter vie
                 v = inflater.inflate(R.layout.test_card, parent, false);
             }
             ((TextView) v.findViewById(R.id.textView2)).setText(data.get(position));
+            
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String item = (String)getItem(position);
+                    Log.i("MainActivity", item);
+                }
+            });
+            
             return v;
         }
     }
@@ -159,14 +168,6 @@ Now we simply give our card deck an adapter and perhaps a callback from our Acti
             @Override
             public void cardSwipedRight(int position) {
                 Log.i("MainActivity", "card was swiped right, position in adapter: " + position);
-            }
-
-            @Override
-            public void cardClicked(int position) {
-                Log.i("MainActivity", "card was clicked, position in adapter: " + position);
-                //example of how to get the item that was clicked / swiped / etc
-                String item = (String)adapter.getItem(position);
-                Log.i("MainActivity", item);
             }
 
             @Override
