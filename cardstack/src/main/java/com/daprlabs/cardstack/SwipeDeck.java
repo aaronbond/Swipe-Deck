@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.DataSetObserver;
 import android.graphics.Rect;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;

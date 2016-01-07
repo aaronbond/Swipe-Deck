@@ -1,6 +1,8 @@
 package com.daprlabs.swipedeck;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -131,8 +133,11 @@ public class SwipeDeckActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     String item = (String)getItem(position);
                     Log.i("MainActivity", item);
+                    Intent i = new Intent(context, ActivityTwo.class);
+                    context.startActivity(i);
                 }
             });
+
             return v;
         }
     }
