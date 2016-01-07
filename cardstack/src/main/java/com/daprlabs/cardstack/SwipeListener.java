@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewPropertyAnimator;
 import android.view.animation.OvershootInterpolator;
+import android.widget.ScrollView;
 
 /**
  * Created by aaron on 4/12/2015.
@@ -30,6 +31,7 @@ public class SwipeListener implements View.OnTouchListener {
     private boolean deactivated;
     private View rightView;
     private View leftView;
+    private ScrollView scrollView;
 
 
     public SwipeListener(View card, SwipeCallback callback, float initialX, float initialY) {
@@ -42,7 +44,7 @@ public class SwipeListener implements View.OnTouchListener {
     }
 
 
-    public SwipeListener(View card, final SwipeCallback callback, float initialX, float initialY, float rotation, float opacityEnd) {
+    public SwipeListener(View card, final SwipeCallback callback, float initialX, float initialY, float rotation, float opacityEnd, ScrollView scrollView) {
         this.card = card;
         this.initialX = initialX;
         this.initialY = initialY;
@@ -52,22 +54,22 @@ public class SwipeListener implements View.OnTouchListener {
         this.ROTATION_DEGREES = rotation;
         this.OPACITY_END = opacityEnd;
         this.paddingLeft = ((ViewGroup) card.getParent()).getPaddingLeft();
+        this.scrollView = scrollView;
+        scrollView.requestDisallowInterceptTouchEvent(true);
     }
-
 
     private boolean click = true;
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if (deactivated) return false;
-        switch (event.getAction() & MotionEvent.ACTION_MASK) {
-
+        switch(event.getAction() & MotionEvent.ACTION_MASK){
             case MotionEvent.ACTION_DOWN:
-                click = true;
                 //gesture has begun
                 float x;
                 float y;
 
+                v.getParent().requestDisallowInterceptTouchEvent(true);
                 mActivePointerId = event.getPointerId(0);
 
                 x = event.getX();
@@ -79,7 +81,6 @@ public class SwipeListener implements View.OnTouchListener {
 
             case MotionEvent.ACTION_MOVE:
                 //gesture is in progress
-                click = false;
                 final int pointerIndex = event.findPointerIndex(mActivePointerId);
                 final float xMove = event.getX(pointerIndex);
                 final float yMove = event.getY(pointerIndex);
@@ -94,22 +95,15 @@ public class SwipeListener implements View.OnTouchListener {
                 float posY = card.getY() + dy;
 
                 card.setX(posX);
-                card.setY(posY);
-
+                //card.setY(posY);
                 //card.setRotation
+
+                scrollView.scrollBy(-(int)dx, -(int)dy);
+
+
                 float distobjectX = posX - initialX;
                 float rotation = ROTATION_DEGREES * 2.f * distobjectX / parentWidth;
                 card.setRotation(rotation);
-
-                if (rightView != null && leftView != null){
-                    //set alpha of left and right image
-                    float alpha = (((posX - paddingLeft) / (parentWidth * OPACITY_END)));
-                    //float alpha = (((posX - paddingLeft) / parentWidth) * ALPHA_MAGNITUDE );
-                    //Log.i("alpha: ", Float.toString(alpha));
-                    rightView.setAlpha(alpha);
-                    leftView.setAlpha(-alpha);
-                }
-
                 break;
 
             case MotionEvent.ACTION_UP:
@@ -117,16 +111,17 @@ public class SwipeListener implements View.OnTouchListener {
                 //check to see if card has moved beyond the left or right bounds or reset
                 //card position
                 checkCardForEvent();
-                //check if this is a click event and then perform a click
-                //this is a workaround, android doesn't play well with multiple listeners
-                if (click) v.performClick();
+                v.getParent().requestDisallowInterceptTouchEvent(false);
                 break;
-
+            case MotionEvent.ACTION_CANCEL:
+                //this may mean that something has intercepted the event
+                resetCardPosition();
             default:
                 return false;
         }
         return true;
     }
+
 
     private void checkCardForEvent() {
 

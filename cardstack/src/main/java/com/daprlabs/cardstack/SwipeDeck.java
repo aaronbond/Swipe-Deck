@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.FrameLayout;
+import android.widget.ScrollView;
 
 /**
  * Created by aaron on 4/12/2015.
@@ -35,6 +36,7 @@ public class SwipeDeck extends FrameLayout {
 
     private SwipeEventCallback eventCallback;
     private CardPositionCallback cardPosCallback;
+    private ScrollView scrollView = null;
 
     /**
      * The adapter with all the data
@@ -297,7 +299,7 @@ public class SwipeDeck extends FrameLayout {
                     if(eventCallback != null)eventCallback.cardSwipedRight(pos);
                 }
 
-            }, initialX, initialY, ROTATION_DEGREES, OPACITY_END);
+            }, initialX, initialY, ROTATION_DEGREES, OPACITY_END, scrollView);
 
 
             //if we specified these image resources, get the views and pass them to the swipe listener
@@ -327,6 +329,10 @@ public class SwipeDeck extends FrameLayout {
 
     public void setRightImage(int imageResource){
         rightImageResource = imageResource;
+    }
+
+    public void setScrollView(ScrollView scrollView) {
+        this.scrollView = scrollView;
     }
 
     public interface SwipeEventCallback {

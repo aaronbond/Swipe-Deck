@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ScrollView;
 
 import com.daprlabs.cardstack.SwipeDeck;
 
@@ -28,6 +29,7 @@ public class SwipeDeckActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swipe_deck);
         cardStack = (SwipeDeck) findViewById(R.id.swipe_deck);
+        cardStack.setScrollView((ScrollView) findViewById(R.id.scrollView1));
 
         final ArrayList<String> testData = new ArrayList<>();
         testData.add("0");
