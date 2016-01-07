@@ -79,12 +79,6 @@ public class SwipeDeck extends FrameLayout {
         //make sure not to clip to padding
         setClipToPadding(false);
 
-        //i don't think this does anything, doesn't seem to override parents clipping behaviour
-        DisplayMetrics dm = getContext().getResources().getDisplayMetrics();
-        int width = dm.widthPixels;
-        int height = dm.heightPixels;
-        ViewCompat.setClipBounds(this, new Rect(0, 0, width, height));
-
         //render the cards and card deck above or below everything
         if (RENDER_ABOVE) {
             ViewCompat.setTranslationZ(this, Float.MAX_VALUE);

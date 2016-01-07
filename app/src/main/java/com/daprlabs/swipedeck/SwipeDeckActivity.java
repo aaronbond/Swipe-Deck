@@ -61,15 +61,6 @@ public class SwipeDeckActivity extends AppCompatActivity {
 
         cardStack.setLeftImage(R.id.left_image);
         cardStack.setRightImage(R.id.right_image);
-
-        Button btn = (Button) findViewById(R.id.button);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                testData.add("a sample object. in this case a string.");
-                adapter.notifyDataSetChanged();
-            }
-        });
     }
 
     @Override
