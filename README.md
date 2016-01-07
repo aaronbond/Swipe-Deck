@@ -1,6 +1,9 @@
 # Swipe-Deck
 ## A Tinder style Swipeable deck view for Android
 
+NOTE: this version has very rough compatibility for having card decks inside a scroll view.
+check the example app.
+
 ![Screenshot](https://fat.gfycat.com/PartialBitterHermitcrab.gif)
 
 ## Installation
