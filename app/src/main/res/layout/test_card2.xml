@@ -17,14 +17,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
-                android:src="@drawable/food"
+                tools:src="@drawable/food"
                 android:id="@+id/offer_image"
                 android:layout_width="match_parent"
                 android:scaleType="centerCrop"
                 android:adjustViewBounds="true"
                 android:layout_height="200dp" />
             <ImageView
-                android:src="@drawable/companylogo"
+                tools:src="@drawable/companylogo"
                 android:translationZ="20dp"
                 android:layout_width="100dp"
                 android:layout_height="100dp"

@@ -11,9 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.daprlabs.cardstack.SwipeDeck;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -139,9 +141,11 @@ public class SwipeDeckActivity extends AppCompatActivity {
             if (v == null) {
                 LayoutInflater inflater = getLayoutInflater();
                 // normally use a viewholder
-                v = inflater.inflate(R.layout.test_card, parent, false);
+                v = inflater.inflate(R.layout.test_card2, parent, false);
             }
-            ((TextView) v.findViewById(R.id.textView2)).setText(data.get(position));
+            //((TextView) v.findViewById(R.id.textView2)).setText(data.get(position));
+            ImageView imageView = (ImageView) v.findViewById(R.id.offer_image);
+            Picasso.with(context).load(R.drawable.food).fit().centerCrop().into(imageView);
 
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
