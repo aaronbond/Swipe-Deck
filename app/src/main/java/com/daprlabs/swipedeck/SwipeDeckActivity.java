@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.daprlabs.cardstack.SwipeDeck;
 
@@ -55,8 +56,8 @@ public class SwipeDeckActivity extends AppCompatActivity {
 
         });
 
-        cardStack.setLeftImage(R.id.left_image);
-        cardStack.setRightImage(R.id.right_image);
+//        cardStack.setLeftImage(R.id.left_image);
+//        cardStack.setRightImage(R.id.right_image);
 
         Button btn = (Button) findViewById(R.id.button);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -122,9 +123,9 @@ public class SwipeDeckActivity extends AppCompatActivity {
             if (v == null) {
                 LayoutInflater inflater = getLayoutInflater();
                 // normally use a viewholder
-                v = inflater.inflate(R.layout.test_card2, parent, false);
+                v = inflater.inflate(R.layout.test_card, parent, false);
             }
-            //((TextView) v.findViewById(R.id.textView2)).setText(data.get(position));
+            ((TextView) v.findViewById(R.id.textView2)).setText(data.get(position));
 
             v.setOnClickListener(new View.OnClickListener() {
                 @Override

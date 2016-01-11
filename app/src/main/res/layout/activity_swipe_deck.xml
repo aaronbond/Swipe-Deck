@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
     <com.daprlabs.cardstack.SwipeDeck
         android:id="@+id/swipe_deck"
         android:layout_width="match_parent"
