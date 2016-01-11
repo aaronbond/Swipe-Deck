@@ -199,7 +199,7 @@ Now we simply give our card deck an adapter and perhaps a callback from our Acti
 
 # Features
 
-Easily design cards and deck container in XML and have cards render over the top (or underneath) elements in your layout
+###Easily design cards and deck container in XML and have cards render over the top (or underneath) elements in your layout
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -234,7 +234,7 @@ Easily design cards and deck container in XML and have cards render over the top
 
 ![Screenshot](http://i.imgur.com/bijdPhg.png?1)
 
-Indicator images for swiping left and right, simply add a left and right swipe view to your card layout and register their resource
+###Indicator images for swiping left and right, simply add a left and right swipe view to your card layout and register their resource
 id with swipe deck:
 ```xml
             <ImageView
@@ -264,6 +264,28 @@ id with swipe deck:
 ```
 
 ![Screenshot](http://i.imgur.com/j1Npxpn.png?1)
+
+###Programatically Swipe the top card left / right:
+
+```java
+        Button btn = (Button) findViewById(R.id.button);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cardStack.swipeTopCardLeft();
+
+            }
+        });
+        Button btn2 = (Button) findViewById(R.id.button2);
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cardStack.swipeTopCardRight();
+            }
+        });
+```
+![Screenshot](http://i.imgur.com/J6lwtGg.png?1)
+
 
 # TODO
 Lots of optimisation work
