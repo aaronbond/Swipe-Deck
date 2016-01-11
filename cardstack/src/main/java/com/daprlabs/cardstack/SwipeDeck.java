@@ -50,6 +50,7 @@ public class SwipeDeck extends FrameLayout {
     private View topCard;
     private int leftImageResource;
     private int rightImageResource;
+    private boolean topCardSettled = false;
 
     public SwipeDeck(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -161,13 +162,15 @@ public class SwipeDeck extends FrameLayout {
     private void removeTopCard() {
         //top card is now the last in view children
         View child = getChildAt(getChildCount() - 1);
-        child.setOnTouchListener(null);
-        child.setX(0);
-        child.setY(0);
-        child.setRotation(0);
-        removeView(child);
-        // Record that this view was removed so that the next call to addNextCard can reuse it.
-        lastRemovedView = child;
+        if(child != null){
+            child.setOnTouchListener(null);
+            child.setX(0);
+            child.setY(0);
+            child.setRotation(0);
+            removeView(child);
+            // Record that this view was removed so that the next call to addNextCard can reuse it.
+            lastRemovedView = child;
+        }
 
         //if there are no more children left after top card removal let the callback know
         if (getChildCount() <= 0 && eventCallback != null) {
@@ -335,6 +338,7 @@ public class SwipeDeck extends FrameLayout {
             swipeListener.setRightView(rightView);
 
             child.setOnTouchListener(swipeListener);
+            topCardSettled = true;
         }
     }
 
@@ -346,7 +350,8 @@ public class SwipeDeck extends FrameLayout {
 
     public void swipeTopCardLeft() {
         int childCount = getChildCount();
-        if(childCount > 0){
+        if(childCount > 0 && topCardSettled){
+            topCardSettled = false;
             swipeListener.animateOffScreenLeft().setListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationStart(Animator animation) {
@@ -373,7 +378,8 @@ public class SwipeDeck extends FrameLayout {
 
     public void swipeTopCardRight() {
         int childCount = getChildCount();
-        if(childCount > 0){
+        if(childCount > 0 && topCardSettled){
+            topCardSettled = false;
             swipeListener.animateOffScreenRight().setListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationStart(Animator animation) {
