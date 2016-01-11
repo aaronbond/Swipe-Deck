@@ -1,5 +1,6 @@
 package com.daprlabs.cardstack;
 
+import android.animation.Animator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -187,8 +188,7 @@ public class SwipeDeck extends FrameLayout {
             addAndMeasureChild(newBottomChild);
             nextAdapterCard++;
         }
-
-        setupTopCard(nextAdapterCard);
+        setupTopCard();
     }
 
 
@@ -293,14 +293,12 @@ public class SwipeDeck extends FrameLayout {
     }
 
 
-    private void setupTopCard(final int cardPosition) {
-        final View child = getChildAt(0);
+    private void setupTopCard() {
+        final View child = getChildAt(getChildCount() - 1);
 
         //this calculation is to get the correct position in the adapter of the current top card
         //the card position on setup top card is currently always the bottom card in the view
         //at any given time.
-        int childCount = getChildCount();
-        final int pos = cardPosition - childCount;
         int initialX = paddingLeft;
         int initialY = paddingTop;
 
@@ -310,16 +308,18 @@ public class SwipeDeck extends FrameLayout {
             swipeListener = new SwipeListener(child, new SwipeListener.SwipeCallback() {
                 @Override
                 public void cardSwipedLeft() {
+                    int positionInAdapter = nextAdapterCard - getChildCount();
                     removeTopCard();
-                    if (eventCallback != null) eventCallback.cardSwipedLeft(pos);
+                    if (eventCallback != null) eventCallback.cardSwipedLeft(positionInAdapter);
                     addNextCard();
                 }
 
                 @Override
                 public void cardSwipedRight() {
+                    int positionInAdapter = nextAdapterCard - getChildCount();
                     removeTopCard();
                     addNextCard();
-                    if (eventCallback != null) eventCallback.cardSwipedRight(pos);
+                    if (eventCallback != null) eventCallback.cardSwipedRight(positionInAdapter);
                 }
 
             }, initialX, initialY, ROTATION_DEGREES, OPACITY_END);
@@ -340,6 +340,62 @@ public class SwipeDeck extends FrameLayout {
 
     public void setEventCallback(SwipeEventCallback eventCallback) {
         this.eventCallback = eventCallback;
+    }
+
+
+
+    public void swipeTopCardLeft() {
+        int childCount = getChildCount();
+        if(childCount > 0){
+            swipeListener.animateOffScreenLeft().setListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    swipeListener.checkCardForEvent();
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+        }
+    }
+
+    public void swipeTopCardRight() {
+        int childCount = getChildCount();
+        if(childCount > 0){
+            swipeListener.animateOffScreenRight().setListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    swipeListener.checkCardForEvent();
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+        }
     }
 
     public void setPositionCallback(CardPositionCallback callback) {

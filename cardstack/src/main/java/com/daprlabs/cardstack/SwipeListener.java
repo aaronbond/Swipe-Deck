@@ -128,7 +128,7 @@ public class SwipeListener implements View.OnTouchListener {
         return true;
     }
 
-    private void checkCardForEvent() {
+    public void checkCardForEvent() {
 
         if (cardBeyondLeftBorder()) {
             animateOffScreenLeft()
@@ -205,7 +205,7 @@ public class SwipeListener implements View.OnTouchListener {
                 .rotation(0);
     }
 
-    private ViewPropertyAnimator animateOffScreenLeft() {
+    public ViewPropertyAnimator animateOffScreenLeft() {
         return card.animate()
                 .setDuration(150)
                 .x(-(parent.getWidth()))
@@ -213,10 +213,10 @@ public class SwipeListener implements View.OnTouchListener {
                 .rotation(-30);
     }
 
-    private ViewPropertyAnimator animateOffScreenRight() {
+    public ViewPropertyAnimator animateOffScreenRight() {
         return card.animate()
                 .setDuration(150)
-                .x(parent.getWidth())
+                .x(parent.getWidth() * 2)
                 .y(0)
                 .rotation(30);
     }

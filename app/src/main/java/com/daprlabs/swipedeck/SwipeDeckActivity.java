@@ -63,7 +63,23 @@ public class SwipeDeckActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                testData.add("a sample object. in this case a string.");
+                cardStack.swipeTopCardLeft();
+
+            }
+        });
+        Button btn2 = (Button) findViewById(R.id.button2);
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cardStack.swipeTopCardRight();
+            }
+        });
+
+        Button btn3 = (Button) findViewById(R.id.button3);
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                testData.add("a sample string.");
                 adapter.notifyDataSetChanged();
             }
         });
