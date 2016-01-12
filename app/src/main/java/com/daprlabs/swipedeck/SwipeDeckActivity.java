@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.daprlabs.cardstack.SwipeDeck;
 import com.squareup.picasso.Picasso;
@@ -65,7 +64,7 @@ public class SwipeDeckActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cardStack.swipeTopCardLeft();
+                cardStack.swipeTopCardLeft(180);
 
             }
         });
@@ -73,7 +72,7 @@ public class SwipeDeckActivity extends AppCompatActivity {
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cardStack.swipeTopCardRight();
+                cardStack.swipeTopCardRight(180);
             }
         });
 

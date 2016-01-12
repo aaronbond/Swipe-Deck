@@ -355,11 +355,11 @@ public class SwipeDeck extends FrameLayout {
 
 
 
-    public void swipeTopCardLeft() {
+    public void swipeTopCardLeft(int duration) {
         int childCount = getChildCount();
         if(childCount > 0 && topCardSettled){
             topCardSettled = false;
-            swipeListener.animateOffScreenLeft().setListener(new Animator.AnimatorListener() {
+            swipeListener.animateOffScreenLeft(duration).setListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationStart(Animator animation) {
 
@@ -383,11 +383,11 @@ public class SwipeDeck extends FrameLayout {
         }
     }
 
-    public void swipeTopCardRight() {
+    public void swipeTopCardRight(int duration) {
         int childCount = getChildCount();
         if(childCount > 0 && topCardSettled){
             topCardSettled = false;
-            swipeListener.animateOffScreenRight().setListener(new Animator.AnimatorListener() {
+            swipeListener.animateOffScreenRight(duration).setListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationStart(Animator animation) {
 
