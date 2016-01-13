@@ -13,7 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.daprlabs.cardstack.SwipeDeck;
+import com.daprlabs.cardstack.SwipeDeckCompat;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -21,13 +21,13 @@ import java.util.List;
 
 public class SwipeDeckActivity extends AppCompatActivity {
 
-    private SwipeDeck cardStack;
+    private SwipeDeckCompat cardStack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swipe_deck);
-        cardStack = (SwipeDeck) findViewById(R.id.swipe_deck);
+        cardStack = (SwipeDeckCompat) findViewById(R.id.swipe_deck);
 
         final ArrayList<String> testData = new ArrayList<>();
         testData.add("0");
@@ -39,7 +39,7 @@ public class SwipeDeckActivity extends AppCompatActivity {
         final SwipeDeckAdapter adapter = new SwipeDeckAdapter(testData, this);
         cardStack.setAdapter(adapter);
 
-        cardStack.setEventCallback(new SwipeDeck.SwipeEventCallback() {
+        cardStack.setEventCallback(new SwipeDeckCompat.SwipeEventCallback() {
             @Override
             public void cardSwipedLeft(int position) {
                 Log.i("MainActivity", "card was swiped left, position in adapter: " + position);
@@ -57,8 +57,8 @@ public class SwipeDeckActivity extends AppCompatActivity {
 
         });
 
-//        cardStack.setLeftImage(R.id.left_image);
-//        cardStack.setRightImage(R.id.right_image);
+        cardStack.setLeftImage(R.id.left_image);
+        cardStack.setRightImage(R.id.right_image);
 
         Button btn = (Button) findViewById(R.id.button);
         btn.setOnClickListener(new View.OnClickListener() {

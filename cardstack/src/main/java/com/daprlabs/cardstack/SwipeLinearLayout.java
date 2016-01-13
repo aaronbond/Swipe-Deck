@@ -24,6 +24,7 @@ public class SwipeLinearLayout extends LinearLayout {
         setClipChildren(false);
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public SwipeLinearLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setClipChildren(false);

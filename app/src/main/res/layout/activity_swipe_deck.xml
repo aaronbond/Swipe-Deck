@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
 
-    <com.daprlabs.cardstack.SwipeDeck
+    <com.daprlabs.cardstack.SwipeDeckCompat
         android:id="@+id/swipe_deck"
         android:layout_width="match_parent"
         android:layout_height="480dp"
