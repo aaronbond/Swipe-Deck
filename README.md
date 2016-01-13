@@ -1,4 +1,6 @@
 # Swipe-Deck
+
+## VERSION SUPPORTS SDK 7+ 
 ## A Tinder style Swipeable deck view for Android
 
 ![Screenshot](https://fat.gfycat.com/PartialBitterHermitcrab.gif)
