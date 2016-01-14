@@ -1,6 +1,8 @@
 # Swipe-Deck
 
-## VERSION SUPPORTS SDK 7+ 
+## VERSION SUPPORTS SDK 7+ highly experimental
+This version is a rough draft for gingerbread (sdk 7 and above) support i probably won't work on it but if someone needs support for very old versions of android they could probably polish this up to a decent level. at this current stage it's more of a proof of concept.
+
 ## A Tinder style Swipeable deck view for Android
 
 ![Screenshot](https://fat.gfycat.com/PartialBitterHermitcrab.gif)
