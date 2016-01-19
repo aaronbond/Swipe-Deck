@@ -3,6 +3,8 @@
 
 ![Screenshot](https://fat.gfycat.com/PartialBitterHermitcrab.gif)
 
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Swipe--Deck-blue.svg?style=flat-square)](http://android-arsenal.com/details/1/2970)
+
 ## Installation
 
 In your dependencies section add this parameter:
