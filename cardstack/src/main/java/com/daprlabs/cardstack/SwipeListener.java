@@ -79,7 +79,7 @@ public class SwipeListener implements View.OnTouchListener {
 
             case MotionEvent.ACTION_MOVE:
                 //gesture is in progress
-                click = false;
+
                 final int pointerIndex = event.findPointerIndex(mActivePointerId);
                 final float xMove = event.getX(pointerIndex);
                 final float yMove = event.getY(pointerIndex);
@@ -92,6 +92,8 @@ public class SwipeListener implements View.OnTouchListener {
 
                 float posX = card.getX() + dx;
                 float posY = card.getY() + dy;
+
+                if (dx + dy > 5) click = false;
 
                 card.setX(posX);
                 card.setY(posY);
