@@ -11,7 +11,7 @@ In your dependencies section add this parameter:
 
 ```groovy
 dependencies {
-    compile 'com.daprlabs.aaron:cardstack:0.2.1'
+    compile 'com.daprlabs.aaron:cardstack:0.2.2'
 }
 ```
 Sync Gradle and import Swipe-Deck into your project
