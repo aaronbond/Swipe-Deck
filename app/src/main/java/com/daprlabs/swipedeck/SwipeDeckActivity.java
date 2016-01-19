@@ -59,8 +59,8 @@ public class SwipeDeckActivity extends AppCompatActivity {
 
         });
 
-//        cardStack.setLeftImage(R.id.left_image);
-//        cardStack.setRightImage(R.id.right_image);
+        cardStack.setLeftImage(R.id.left_image);
+        cardStack.setRightImage(R.id.right_image);
 
         Button btn = (Button) findViewById(R.id.button);
         btn.setOnClickListener(new View.OnClickListener() {

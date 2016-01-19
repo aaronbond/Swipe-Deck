@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 import android.os.Build;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
@@ -83,6 +84,8 @@ public class SwipeDeck extends FrameLayout {
         setClipToPadding(false);
         setClipChildren(false);
 
+        this.setWillNotDraw(false);
+
         //i don't think this does anything, doesn't seem to override parents clipping behaviour
 //        DisplayMetrics dm = getContext().getResources().getDisplayMetrics();
 //        int width = dm.widthPixels;
@@ -101,6 +104,19 @@ public class SwipeDeck extends FrameLayout {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
+
+        //perform cliprect
+//        int childCount = getChildCount();
+//        if(childCount > 2){
+//            for(int i=0; i<childCount -2; ++i){
+//                View child = getChildAt(i);
+//                canvas.clipRect(child.getLeft(), getTop() + CARD_SPACING, child.getRight(), child.getBottom());
+//            }
+//
+//        }
+
+
 
     }
 
