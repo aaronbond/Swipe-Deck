@@ -288,6 +288,15 @@ id with swipe deck:
 ```
 ![Screenshot](http://i.imgur.com/J6lwtGg.png?1)
 
+## Hardware Acceleration (EXPERIMENTAL)
+If you think you might appreciate a boost from some extra GPU acceleration (maybe you're using very complex card views like in the sample app) go ahead and enable hardware acceleration:
+
+```Java
+ 	cardStack = (SwipeDeck) findViewById(R.id.swipe_deck);
+        cardStack.setHardwareAccelerationEnabled(true);
+```
+
+Currently it's only available in the git repo (you'll have to pull and compile or import the project) when it has been tested a little more i'll roll it out. 
 
 # TODO
 Lots of optimisation work
