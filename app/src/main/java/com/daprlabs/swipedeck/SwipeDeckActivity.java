@@ -29,6 +29,8 @@ public class SwipeDeckActivity extends AppCompatActivity {
         setContentView(R.layout.activity_swipe_deck);
         cardStack = (SwipeDeck) findViewById(R.id.swipe_deck);
 
+        cardStack.setHardwareAccelerationEnabled(true);
+
         final ArrayList<String> testData = new ArrayList<>();
         testData.add("0");
         testData.add("1");
@@ -150,7 +152,8 @@ public class SwipeDeckActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     String item = (String)getItem(position);
-                    Log.i("MainActivity", item);
+                    Log.i("Layer type: ", Integer.toString(v.getLayerType()));
+                    Log.i("Hwardware Accel type:", Integer.toString(View.LAYER_TYPE_HARDWARE));
                 }
             });
             return v;

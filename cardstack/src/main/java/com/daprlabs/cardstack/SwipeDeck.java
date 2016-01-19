@@ -6,12 +6,9 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.DataSetObserver;
 import android.graphics.Canvas;
-import android.graphics.Rect;
 import android.os.Build;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
@@ -32,8 +29,10 @@ public class SwipeDeck extends FrameLayout {
     private boolean RENDER_BELOW;
     private float OPACITY_END;
     private int CARD_GRAVITY;
-
     private int paddingLeft;
+
+    private boolean hardwareAccelerationEnabled = false;
+
     private int paddingRight;
     private int paddingTop;
     private int paddingBottom;
@@ -103,6 +102,14 @@ public class SwipeDeck extends FrameLayout {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+    }
+
+    /**
+     * Set Hardware Acceleration Enabled, EXPERIMENTAL.
+     * @param accel
+     */
+    public void setHardwareAccelerationEnabled(Boolean accel){
+        this.hardwareAccelerationEnabled = accel;
     }
 
     public void setAdapter(Adapter adapter) {
@@ -191,6 +198,11 @@ public class SwipeDeck extends FrameLayout {
             // TODO: Instead of removing the view from here and adding it again when it's swiped
             // ... don't remove and add to this instance: don't call removeView & addView in sequence.
             View newBottomChild = mAdapter.getView(nextAdapterCard, null/*lastRemovedView*/, this);
+
+            if (hardwareAccelerationEnabled == true) {
+                //set backed by an off-screen buffer
+                newBottomChild.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+            }
             this.lastRemovedView = null;
 
             //set the initial Y value so card appears from under the deck
