@@ -5,6 +5,10 @@
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Swipe--Deck-blue.svg?style=flat-square)](http://android-arsenal.com/details/1/2970)
 
+## A Message To Developers
+
+This project is still under considerable amount of development, as such i tend to tweak the API occasionally, if things change a little come and read the README or send me an issue. Please send me issues and pull requests if you need something fixed or have a feature you want and be sure to tell me if you find a bug!
+
 ## Installation
 
 In your dependencies section add this parameter:
