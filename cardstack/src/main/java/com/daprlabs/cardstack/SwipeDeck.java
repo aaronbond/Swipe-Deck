@@ -332,7 +332,17 @@ public class SwipeDeck extends FrameLayout {
 
 
     private void setupTopCard() {
-        final View child = getChildAt(getChildCount() - 1);
+
+        int childCount = getChildCount();
+        final View child;
+        //TODO: maybe find a better solution this is kind of hacky
+        //if there's an extra card on screen that means the top card is still being animated
+        //in that case setup the next card along
+        if(childCount == (NUMBER_OF_CARDS + 1)){
+            child = getChildAt(getChildCount() - 2);
+        }else{
+            child = getChildAt(getChildCount() - 1);
+        }
 
         //this calculation is to get the correct position in the adapter of the current top card
         //the card position on setup top card is currently always the bottom card in the view
@@ -356,8 +366,12 @@ public class SwipeDeck extends FrameLayout {
                 public void cardSwipedRight() {
                     int positionInAdapter = nextAdapterCard - getChildCount();
                     removeTopCard();
-                    addNextCard();
                     if (eventCallback != null) eventCallback.cardSwipedRight(positionInAdapter);
+                    addNextCard();
+                }
+
+                @Override
+                public void cardOffScreen() {
                 }
 
             }, initialX, initialY, ROTATION_DEGREES, OPACITY_END);
@@ -465,4 +479,8 @@ public class SwipeDeck extends FrameLayout {
 
         void yPos(Float y);
     }
+
+    //TODO:
+    //  make it so you can swipe cards as fast as you like
+    //
 }

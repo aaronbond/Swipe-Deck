@@ -150,7 +150,8 @@ public class SwipeListener implements View.OnTouchListener {
 
                         @Override
                         public void onAnimationEnd(Animator animation) {
-                            callback.cardSwipedLeft();
+
+                            callback.cardOffScreen();
                         }
 
                         @Override
@@ -162,6 +163,7 @@ public class SwipeListener implements View.OnTouchListener {
                         public void onAnimationRepeat(Animator animation) {
                         }
                     });
+            callback.cardSwipedLeft();
             this.deactivated = true;
         } else if (cardBeyondRightBorder()) {
             animateOffScreenRight(160)
@@ -174,7 +176,7 @@ public class SwipeListener implements View.OnTouchListener {
 
                         @Override
                         public void onAnimationEnd(Animator animation) {
-                            callback.cardSwipedRight();
+                            callback.cardOffScreen();
                         }
 
                         @Override
@@ -187,6 +189,7 @@ public class SwipeListener implements View.OnTouchListener {
 
                         }
                     });
+            callback.cardSwipedRight();
             this.deactivated = true;
         } else {
             resetCardPosition();
@@ -241,5 +244,6 @@ public class SwipeListener implements View.OnTouchListener {
     public interface SwipeCallback {
         void cardSwipedLeft();
         void cardSwipedRight();
+        void cardOffScreen();
     }
 }
