@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CursorAdapter;
 import android.widget.ImageView;
 
 import com.daprlabs.cardstack.SwipeDeck;
@@ -22,12 +23,14 @@ import java.util.List;
 public class SwipeDeckActivity extends AppCompatActivity {
 
     private SwipeDeck cardStack;
+    private Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swipe_deck);
         cardStack = (SwipeDeck) findViewById(R.id.swipe_deck);
+
 
         cardStack.setHardwareAccelerationEnabled(true);
 
@@ -82,10 +85,19 @@ public class SwipeDeckActivity extends AppCompatActivity {
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                testData.add("a sample string.");
-                adapter.notifyDataSetChanged();
+                //testData.add("a sample string.");
+                ArrayList<String> newData = new ArrayList<>();
+                newData.add("some new data");
+                newData.add("some new data");
+                newData.add("some new data");
+                newData.add("some new data");
+
+                SwipeDeckAdapter adapter = new SwipeDeckAdapter(newData, context);
+                cardStack.setAdapter(adapter);
+                //adapter.notifyDataSetChanged();
             }
         });
+
     }
 
     @Override

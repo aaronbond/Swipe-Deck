@@ -45,6 +45,7 @@ public class SwipeDeck extends FrameLayout {
      * The adapter with all the data
      */
     private Adapter mAdapter;
+    DataSetObserver observer;
     private int nextAdapterCard = 0;
 
     private View lastRemovedView;
@@ -79,18 +80,11 @@ public class SwipeDeck extends FrameLayout {
         paddingTop = getPaddingTop();
 
         //set clipping of view parent to false so cards render outside their view boundary
-
         //make sure not to clip to padding
         setClipToPadding(false);
         setClipChildren(false);
 
         this.setWillNotDraw(false);
-
-        //i don't think this does anything, doesn't seem to override parents clipping behaviour
-//        DisplayMetrics dm = getContext().getResources().getDisplayMetrics();
-//        int width = dm.widthPixels;
-//        int height = dm.heightPixels;
-//        ViewCompat.setClipBounds(this, new Rect(0, 0, width, height));
 
         //render the cards and card deck above or below everything
         if (RENDER_ABOVE) {
@@ -105,7 +99,6 @@ public class SwipeDeck extends FrameLayout {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-
         //perform cliprect
 //        int childCount = getChildCount();
 //        if(childCount > 2){
@@ -115,9 +108,6 @@ public class SwipeDeck extends FrameLayout {
 //            }
 //
 //        }
-
-
-
     }
 
     /**
@@ -129,14 +119,17 @@ public class SwipeDeck extends FrameLayout {
     }
 
     public void setAdapter(Adapter adapter) {
+        if (this.mAdapter != null) {
+            this.mAdapter.unregisterDataSetObserver(observer);
+        }
         mAdapter = adapter;
+        nextAdapterCard = 0;
 
-        adapter.registerDataSetObserver(new DataSetObserver() {
+        observer = new DataSetObserver() {
             @Override
             public void onChanged() {
                 super.onChanged();
                 //handle data set changes
-
                 //if we need to add any cards at this point (ie. the amount of cards on screen
                 //is less than the max number of cards to display) add the cards.
                 int childCount = getChildCount();
@@ -148,14 +141,19 @@ public class SwipeDeck extends FrameLayout {
                     positionItem(i);
                 }
             }
-        });
 
+            @Override
+            public void onInvalidated() {
+                //reset state, remove views and request layout
+                nextAdapterCard = 0;
+                removeAllViews();
+                requestLayout();
+            }
+        };
+
+        adapter.registerDataSetObserver(observer);
         removeAllViewsInLayout();
         requestLayout();
-    }
-
-    public Adapter getAdapter() {
-        return mAdapter;
     }
 
     public void setSelection(int position) {
@@ -215,7 +213,7 @@ public class SwipeDeck extends FrameLayout {
             // ... don't remove and add to this instance: don't call removeView & addView in sequence.
             View newBottomChild = mAdapter.getView(nextAdapterCard, null/*lastRemovedView*/, this);
 
-            if (hardwareAccelerationEnabled == true) {
+            if (hardwareAccelerationEnabled) {
                 //set backed by an off-screen buffer
                 newBottomChild.setLayerType(View.LAYER_TYPE_HARDWARE, null);
             }
@@ -480,7 +478,4 @@ public class SwipeDeck extends FrameLayout {
         void yPos(Float y);
     }
 
-    //TODO:
-    //  make it so you can swipe cards as fast as you like
-    //
 }
