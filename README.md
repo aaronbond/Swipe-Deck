@@ -1,6 +1,8 @@
 # Swipe-Deck
 ## A Tinder style Swipeable deck view for Android
 
+[![Join the chat at https://gitter.im/aaronbond/Swipe-Deck](https://badges.gitter.im/aaronbond/Swipe-Deck.svg)](https://gitter.im/aaronbond/Swipe-Deck?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ![Screenshot](https://fat.gfycat.com/PartialBitterHermitcrab.gif)
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Swipe--Deck-blue.svg?style=flat-square)](http://android-arsenal.com/details/1/2970)
