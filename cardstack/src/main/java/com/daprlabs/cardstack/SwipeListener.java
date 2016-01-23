@@ -83,7 +83,9 @@ public class SwipeListener implements View.OnTouchListener {
                 final int pointerIndex = event.findPointerIndex(mActivePointerId);
                 //TODO figure out what causes this multitouch problem and implement a proper fix // FIXME: 20/01/2016
                 //Log.i("pointer index: " , Integer.toString(pointerIndex));
-                if(pointerIndex < 0) break;
+                if(pointerIndex < 0 || pointerIndex > 0 ){
+                    break;
+                }
 
                 final float xMove = event.getX(pointerIndex);
                 final float yMove = event.getY(pointerIndex);
@@ -92,11 +94,21 @@ public class SwipeListener implements View.OnTouchListener {
                 final float dx = xMove - initialXPress;
                 final float dy = yMove - initialYPress;
 
-                //calc rotation here
+                //throw away the move in this case as it seems to be wrong
+                //TODO: figure out why this is the case
+                if((int)initialXPress == 0 && (int) initialYPress == 0){
+                    //makes sure the pointer is valid
+                    break;
+                }
 
+                Log.d("initialX: ", "" + initialXPress);
+                Log.d("initialY: ", "" + initialYPress);
+
+                //calc rotation here
                 float posX = card.getX() + dx;
                 float posY = card.getY() + dy;
 
+                //in this circumstance consider the motion a click
                 if (dx + dy > 5) click = false;
 
                 card.setX(posX);

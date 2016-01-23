@@ -85,16 +85,16 @@ public class SwipeDeckActivity extends AppCompatActivity {
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //testData.add("a sample string.");
-                ArrayList<String> newData = new ArrayList<>();
-                newData.add("some new data");
-                newData.add("some new data");
-                newData.add("some new data");
-                newData.add("some new data");
-
-                SwipeDeckAdapter adapter = new SwipeDeckAdapter(newData, context);
-                cardStack.setAdapter(adapter);
-                //adapter.notifyDataSetChanged();
+                testData.add("a sample string.");
+//                ArrayList<String> newData = new ArrayList<>();
+//                newData.add("some new data");
+//                newData.add("some new data");
+//                newData.add("some new data");
+//                newData.add("some new data");
+//
+//                SwipeDeckAdapter adapter = new SwipeDeckAdapter(newData, context);
+//                cardStack.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
             }
         });
 
