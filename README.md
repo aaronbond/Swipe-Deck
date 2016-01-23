@@ -3,7 +3,7 @@
 
 ![Screenshot](https://fat.gfycat.com/PartialBitterHermitcrab.gif)
 
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Swipe--Deck-blue.svg?style=flat-square)](http://android-arsenal.com/details/1/2970)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Swipe--Deck-blue.svg?style=flat-square)](http://android-arsenal.com/details/1/2970)  [![Join the chat at https://gitter.im/aaronbond/Swipe-Deck](https://badges.gitter.im/aaronbond/Swipe-Deck.svg)](https://gitter.im/aaronbond/Swipe-Deck?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## A Message To Developers
 
@@ -15,7 +15,7 @@ In your dependencies section add this parameter:
 
 ```groovy
 dependencies {
-    compile 'com.daprlabs.aaron:cardstack:0.2.2'
+    compile 'com.daprlabs.aaron:cardstack:0.2.4'
 }
 ```
 Sync Gradle and import Swipe-Deck into your project
