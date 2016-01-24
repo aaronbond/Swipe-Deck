@@ -34,7 +34,6 @@ public class SwipeDeck extends FrameLayout {
     private float OPACITY_END;
     private int CARD_GRAVITY;
     private int paddingLeft;
-
     private boolean hardwareAccelerationEnabled = false;
 
     private int paddingRight;
