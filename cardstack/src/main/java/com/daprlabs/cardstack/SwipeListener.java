@@ -102,10 +102,6 @@ public class SwipeListener implements View.OnTouchListener {
                     //makes sure the pointer is valid
                     break;
                 }
-
-                Log.d("initialX: ", "" + initialXPress);
-                Log.d("initialY: ", "" + initialYPress);
-
                 //calc rotation here
                 float posX = card.getX() + dx;
                 float posY = card.getY() + dy;
