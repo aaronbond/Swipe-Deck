@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/aaronbond/Swipe-Deck'
     gitUrl = 'https://github.com/aaronbond/Swipe-Deck.git'
 
-    libraryVersion = '0.2.6'
+    libraryVersion = '0.2.7'
 
     developerId = 'aaronbond'
     developerName = 'Aaron Bond'
@@ -31,8 +31,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 16
-        versionName "0.2.6"
+        versionCode 17
+        versionName "0.2.7"
     }
     buildTypes {
         release {
@@ -46,6 +46,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:design:23.1.1'
 }
 
 apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
