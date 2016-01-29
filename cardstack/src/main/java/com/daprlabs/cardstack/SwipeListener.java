@@ -107,7 +107,7 @@ public class SwipeListener implements View.OnTouchListener {
                 float posY = card.getY() + dy;
 
                 //in this circumstance consider the motion a click
-                if (dx + dy > 5) click = false;
+                if (Math.abs(dx + dy) > 5) click = false;
 
                 card.setX(posX);
                 card.setY(posY);
