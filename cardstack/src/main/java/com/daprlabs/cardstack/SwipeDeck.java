@@ -2,12 +2,15 @@ package com.daprlabs.cardstack;
 
 import android.animation.Animator;
 import android.annotation.TargetApi;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.DataSetObserver;
 import android.graphics.Canvas;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.UiThread;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
@@ -19,6 +22,9 @@ import android.widget.Adapter;
 import android.widget.FrameLayout;
 
 import java.util.ArrayList;
+
+import icepick.Icepick;
+import icepick.State;
 
 /**
  * Created by aaron on 4/12/2015.
@@ -48,7 +54,9 @@ public class SwipeDeck extends FrameLayout {
      */
     private Adapter mAdapter;
     DataSetObserver observer;
-    private int nextAdapterCard = 0;
+    @State
+    int nextAdapterCard = 0;
+    private boolean restoreInstanceState = false;
 
     private SwipeListener swipeListener;
     private int leftImageResource;
@@ -94,19 +102,21 @@ public class SwipeDeck extends FrameLayout {
         }
     }
 
+    //state persistence
     @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
+    public Parcelable onSaveInstanceState()
+    {
+        //when persisting this piece of state need to roll it back by the child count
+        //so those children get restored later instead of skipped over
+        nextAdapterCard = nextAdapterCard - getChildCount();
+        return Icepick.saveInstanceState(this, super.onSaveInstanceState());
+    }
 
-        //perform cliprect
-//        int childCount = getChildCount();
-//        if(childCount > 2){
-//            for(int i=0; i<childCount -2; ++i){
-//                View child = getChildAt(i);
-//                canvas.clipRect(child.getLeft(), getTop() + CARD_SPACING, child.getRight(), child.getBottom());
-//            }
-//
-//        }
+    @Override
+    public void onRestoreInstanceState(Parcelable state)
+    {
+        restoreInstanceState = true;
+        super.onRestoreInstanceState(Icepick.restoreInstanceState(this, state));
     }
 
     /**
@@ -123,7 +133,8 @@ public class SwipeDeck extends FrameLayout {
             this.mAdapter.unregisterDataSetObserver(observer);
         }
         mAdapter = adapter;
-        nextAdapterCard = 0;
+        // if we're not restoring previous instance state
+        if(!restoreInstanceState)nextAdapterCard = 0;
 
         observer = new DataSetObserver() {
             @Override
@@ -298,9 +309,12 @@ public class SwipeDeck extends FrameLayout {
         int childCount = getChildCount();
         float offset = (int) (((childCount - 1) * CARD_SPACING) - (index * CARD_SPACING));
         //child.setY(paddingTop + offset);
+
         child.animate()
-                .setDuration(160)
-                .y(paddingTop + offset);
+                .setDuration(restoreInstanceState ? 0 : 160)
+        .y(paddingTop + offset);
+
+        restoreInstanceState = false;
     }
 
     @Override
