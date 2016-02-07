@@ -30,8 +30,6 @@ public class SwipeDeckActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swipe_deck);
         cardStack = (SwipeDeck) findViewById(R.id.swipe_deck);
-
-
         cardStack.setHardwareAccelerationEnabled(true);
 
         final ArrayList<String> testData = new ArrayList<>();

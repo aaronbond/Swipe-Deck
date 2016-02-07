@@ -1,23 +1,16 @@
 package com.daprlabs.cardstack;
 
-import android.animation.Animator;
 import android.annotation.TargetApi;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.DataSetObserver;
-import android.graphics.Canvas;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.UiThread;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.Adapter;
 import android.widget.FrameLayout;
 
@@ -144,12 +137,15 @@ public class SwipeDeck extends FrameLayout {
                 //if we need to add any cards at this point (ie. the amount of cards on screen
                 //is less than the max number of cards to display) add the cards.
                 int childCount = getChildCount();
-                for (int i = childCount; i < NUMBER_OF_CARDS; ++i) {
-                    addNextCard();
-                }
-                //position the items correctly on screen
-                for (int i = 0; i < getChildCount(); ++i) {
-                    positionItem(i);
+                //only perform action if there are less cards on screen than NUMBER_OF_CARDS
+                if(childCount < NUMBER_OF_CARDS) {
+                    for (int i = childCount; i < NUMBER_OF_CARDS; ++i) {
+                        addNextCard();
+                    }
+                    //position the items correctly on screen
+                    for (int i = 0; i < getChildCount(); ++i) {
+                        positionItem(i);
+                    }
                 }
             }
 
