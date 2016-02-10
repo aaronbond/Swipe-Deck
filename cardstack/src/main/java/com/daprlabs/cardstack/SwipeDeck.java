@@ -392,6 +392,16 @@ public class SwipeDeck extends FrameLayout {
                 public void cardOffScreen() {
                 }
 
+                @Override
+                public void cardActionDown() {
+                    if(eventCallback!=null) eventCallback.cardActionDown();
+                }
+
+                @Override
+                public void cardActionUp() {
+                    if(eventCallback!=null) eventCallback.cardActionUp();
+                }
+
             }, initialX, initialY, ROTATION_DEGREES, OPACITY_END);
 
 
@@ -458,6 +468,10 @@ public class SwipeDeck extends FrameLayout {
         void cardSwipedRight(int position);
 
         void cardsDepleted();
+
+        void cardActionDown();
+
+        void cardActionUp();
     }
 
     public interface CardPositionCallback {

@@ -75,6 +75,10 @@ public class SwipeListener implements View.OnTouchListener {
                 x = event.getX();
                 y = event.getY();
 
+                if(event.findPointerIndex(mActivePointerId) == 0) {
+                    callback.cardActionDown();
+                }
+
                 initialXPress = x;
                 initialYPress = y;
                 break;
@@ -83,7 +87,6 @@ public class SwipeListener implements View.OnTouchListener {
                 //gesture is in progress
 
                 final int pointerIndex = event.findPointerIndex(mActivePointerId);
-                //TODO figure out what causes this multitouch problem and implement a proper fix // FIXME: 20/01/2016
                 //Log.i("pointer index: " , Integer.toString(pointerIndex));
                 if(pointerIndex < 0 || pointerIndex > 0 ){
                     break;
@@ -133,6 +136,10 @@ public class SwipeListener implements View.OnTouchListener {
                 //check to see if card has moved beyond the left or right bounds or reset
                 //card position
                 checkCardForEvent();
+
+                if(event.findPointerIndex(mActivePointerId) == 0) {
+                    callback.cardActionUp();
+                }
                 //check if this is a click event and then perform a click
                 //this is a workaround, android doesn't play well with multiple listeners
 
@@ -256,5 +263,7 @@ public class SwipeListener implements View.OnTouchListener {
         void cardSwipedLeft();
         void cardSwipedRight();
         void cardOffScreen();
+        void cardActionDown();
+        void cardActionUp();
     }
 }

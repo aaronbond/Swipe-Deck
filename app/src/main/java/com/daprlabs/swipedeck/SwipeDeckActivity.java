@@ -22,6 +22,7 @@ import java.util.List;
 
 public class SwipeDeckActivity extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
     private SwipeDeck cardStack;
     private Context context = this;
 
@@ -56,6 +57,16 @@ public class SwipeDeckActivity extends AppCompatActivity {
             @Override
             public void cardsDepleted() {
                 Log.i("MainActivity", "no more cards");
+            }
+
+            @Override
+            public void cardActionDown() {
+                Log.i(TAG, "cardActionDown");
+            }
+
+            @Override
+            public void cardActionUp() {
+                Log.i(TAG, "cardActionUp");
             }
 
         });
