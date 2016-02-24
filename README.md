@@ -11,9 +11,13 @@ This project is still under considerable amount of development, as such i tend t
 
 ## Installation
 
-In your dependencies section add this parameter:
+In your repositories and dependencies section add these parameters:
 
 ```groovy
+repositories {
+  maven {url "https://clojars.org/repo/"}
+}
+
 dependencies {
     compile 'com.daprlabs.aaron:cardstack:0.2.11'
 }
