@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Parcelable;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
@@ -54,6 +55,7 @@ public class SwipeDeck extends FrameLayout {
     private SwipeListener swipeListener;
     private int leftImageResource;
     private int rightImageResource;
+    private boolean cardInteraction;
 
     public SwipeDeck(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -101,7 +103,7 @@ public class SwipeDeck extends FrameLayout {
     {
         //when persisting this piece of state need to roll it back by the child count
         //so those children get restored later instead of skipped over
-        nextAdapterCard = nextAdapterCard - getChildCount();
+        //nextAdapterCard = nextAdapterCard - getChildCount();
         return Icepick.saveInstanceState(this, super.onSaveInstanceState());
     }
 
@@ -201,17 +203,14 @@ public class SwipeDeck extends FrameLayout {
         if (child != null) {
             child.setOnTouchListener(null);
             swipeListener = null;
+            //this will also check to see if cards are depleted
             removeViewWaitForAnimation(child);
-        }
-
-        //if there are no more children left after top card removal let the callback know
-        if (getChildCount() <= 0 && eventCallback != null) {
-            eventCallback.cardsDepleted();
         }
     }
 
     private void removeViewWaitForAnimation(View child) {
         new RemoveViewOnAnimCompleted().execute(child);
+
 
     }
 
@@ -395,11 +394,14 @@ public class SwipeDeck extends FrameLayout {
                 @Override
                 public void cardActionDown() {
                     if(eventCallback!=null) eventCallback.cardActionDown();
+                    cardInteraction = true;
                 }
 
                 @Override
                 public void cardActionUp() {
+
                     if(eventCallback!=null) eventCallback.cardActionUp();
+                    cardInteraction = false;
                 }
 
             }, initialX, initialY, ROTATION_DEGREES, OPACITY_END);
@@ -492,6 +494,11 @@ public class SwipeDeck extends FrameLayout {
         protected void onPostExecute(View view) {
             super.onPostExecute(view);
             removeView(view);
+
+            //if there are no more children left after top card removal let the callback know
+            if (getChildCount() <= 0 && eventCallback != null) {
+                eventCallback.cardsDepleted();
+            }
         }
     }
 }

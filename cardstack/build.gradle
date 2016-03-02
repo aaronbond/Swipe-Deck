@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/aaronbond/Swipe-Deck'
     gitUrl = 'https://github.com/aaronbond/Swipe-Deck.git'
 
-    libraryVersion = '0.2.9'
+    libraryVersion = '0.2.12'
 
     developerId = 'aaronbond'
     developerName = 'Aaron Bond'
@@ -28,11 +28,15 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
 
+    repositories {
+        maven {url "https://clojars.org/repo/"}
+    }
+
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 19
-        versionName "0.2.9"
+        versionCode 22
+        versionName "0.2.12"
     }
     buildTypes {
         release {

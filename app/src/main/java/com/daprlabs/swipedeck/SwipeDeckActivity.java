@@ -26,6 +26,9 @@ public class SwipeDeckActivity extends AppCompatActivity {
     private SwipeDeck cardStack;
     private Context context = this;
 
+    private SwipeDeckAdapter adapter;
+    private ArrayList<String> testData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,14 +36,14 @@ public class SwipeDeckActivity extends AppCompatActivity {
         cardStack = (SwipeDeck) findViewById(R.id.swipe_deck);
         cardStack.setHardwareAccelerationEnabled(true);
 
-        final ArrayList<String> testData = new ArrayList<>();
+        testData = new ArrayList<>();
         testData.add("0");
         testData.add("1");
         testData.add("2");
         testData.add("3");
         testData.add("4");
 
-        final SwipeDeckAdapter adapter = new SwipeDeckAdapter(testData, this);
+        adapter = new SwipeDeckAdapter(testData, this);
         cardStack.setAdapter(adapter);
 
         cardStack.setEventCallback(new SwipeDeck.SwipeEventCallback() {
@@ -70,7 +73,6 @@ public class SwipeDeckActivity extends AppCompatActivity {
             }
 
         });
-
         cardStack.setLeftImage(R.id.left_image);
         cardStack.setRightImage(R.id.right_image);
 

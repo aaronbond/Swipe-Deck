@@ -69,6 +69,8 @@ public class SwipeListener implements View.OnTouchListener {
                 //gesture has begun
                 float x;
                 float y;
+                //cancel any current animations
+                v.clearAnimation();
 
                 mActivePointerId = event.getPointerId(0);
 
