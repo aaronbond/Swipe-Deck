@@ -14,12 +14,8 @@ This project is still under considerable amount of development, as such i tend t
 In your repositories and dependencies section add these parameters:
 
 ```groovy
-repositories {
-  maven {url "https://clojars.org/repo/"}
-}
-
 dependencies {
-    compile 'com.daprlabs.aaron:cardstack:0.2.11'
+    compile 'com.daprlabs.aaron:cardstack:0.3.0'
 }
 ```
 Sync Gradle and import Swipe-Deck into your project

@@ -17,9 +17,6 @@ import android.widget.FrameLayout;
 
 import java.util.ArrayList;
 
-import icepick.Icepick;
-import icepick.State;
-
 /**
  * Created by aaron on 4/12/2015.
  */
@@ -34,7 +31,7 @@ public class SwipeDeck extends FrameLayout {
     private float OPACITY_END;
     private int CARD_GRAVITY;
     private int paddingLeft;
-    private boolean hardwareAccelerationEnabled = false;
+    private boolean hardwareAccelerationEnabled = true;
 
     private int paddingRight;
     private int paddingTop;
@@ -48,7 +45,6 @@ public class SwipeDeck extends FrameLayout {
      */
     private Adapter mAdapter;
     DataSetObserver observer;
-    @State
     int nextAdapterCard = 0;
     private boolean restoreInstanceState = false;
 
@@ -97,25 +93,8 @@ public class SwipeDeck extends FrameLayout {
         }
     }
 
-    //state persistence
-    @Override
-    public Parcelable onSaveInstanceState()
-    {
-        //when persisting this piece of state need to roll it back by the child count
-        //so those children get restored later instead of skipped over
-        //nextAdapterCard = nextAdapterCard - getChildCount();
-        return Icepick.saveInstanceState(this, super.onSaveInstanceState());
-    }
-
-    @Override
-    public void onRestoreInstanceState(Parcelable state)
-    {
-        restoreInstanceState = true;
-        super.onRestoreInstanceState(Icepick.restoreInstanceState(this, state));
-    }
-
     /**
-     * Set Hardware Acceleration Enabled, EXPERIMENTAL.
+     * Set Hardware Acceleration Enabled.
      *
      * @param accel
      */

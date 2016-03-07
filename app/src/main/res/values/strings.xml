@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SwipeDeck</string>
+    <string name="title_activity_blank">BlankActivity</string>
 </resources>

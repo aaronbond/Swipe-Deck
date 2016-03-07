@@ -1,6 +1,7 @@
 package com.daprlabs.swipedeck;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -177,6 +178,9 @@ public class SwipeDeckActivity extends AppCompatActivity {
                     String item = (String)getItem(position);
                     Log.i("Layer type: ", Integer.toString(v.getLayerType()));
                     Log.i("Hwardware Accel type:", Integer.toString(View.LAYER_TYPE_HARDWARE));
+
+                    Intent i = new Intent(v.getContext(), BlankActivity.class);
+                    v.getContext().startActivity(i);
                 }
             });
             return v;
