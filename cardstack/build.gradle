@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/aaronbond/Swipe-Deck'
     gitUrl = 'https://github.com/aaronbond/Swipe-Deck.git'
 
-    libraryVersion = '0.3.0'
+    libraryVersion = '0.3.1'
 
     developerId = 'aaronbond'
     developerName = 'Aaron Bond'
@@ -35,8 +35,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 26
-        versionName "0.3.0"
+        versionCode 27
+        versionName "0.3.1"
     }
     buildTypes {
         release {

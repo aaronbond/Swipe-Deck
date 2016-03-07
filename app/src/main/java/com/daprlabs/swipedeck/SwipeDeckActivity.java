@@ -14,6 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.daprlabs.cardstack.SwipeDeck;
 import com.squareup.picasso.Picasso;
@@ -109,7 +110,6 @@ public class SwipeDeckActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
         });
-
     }
 
     @Override
@@ -171,14 +171,15 @@ public class SwipeDeckActivity extends AppCompatActivity {
             //((TextView) v.findViewById(R.id.textView2)).setText(data.get(position));
             ImageView imageView = (ImageView) v.findViewById(R.id.offer_image);
             Picasso.with(context).load(R.drawable.food).fit().centerCrop().into(imageView);
+            TextView textView = (TextView) v.findViewById(R.id.sample_text);
+            String item = (String)getItem(position);
+            textView.setText(item);
 
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String item = (String)getItem(position);
                     Log.i("Layer type: ", Integer.toString(v.getLayerType()));
                     Log.i("Hwardware Accel type:", Integer.toString(View.LAYER_TYPE_HARDWARE));
-
                     Intent i = new Intent(v.getContext(), BlankActivity.class);
                     v.getContext().startActivity(i);
                 }

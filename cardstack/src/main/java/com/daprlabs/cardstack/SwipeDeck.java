@@ -145,8 +145,12 @@ public class SwipeDeck extends FrameLayout {
     }
 
 
-    public void setSelection(int position) {
-        throw new UnsupportedOperationException("Not supported");
+    public void setSelection(int position){
+        if(position < mAdapter.getCount()){
+            this.nextAdapterCard = position;
+            removeAllViews();
+            requestLayout();
+        }
     }
 
     public View getSelectedView() {
