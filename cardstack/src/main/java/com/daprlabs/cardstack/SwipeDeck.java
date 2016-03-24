@@ -182,7 +182,8 @@ public class SwipeDeck extends FrameLayout {
 
     private void removeTopCard() {
         //top card is now the last in view children
-        final View child = getChildAt(getChildCount() - 1);
+        int childOffset = getChildCount() - NUMBER_OF_CARDS + 1;
+        final View child = getChildAt(getChildCount() - childOffset);
         if (child != null) {
             child.setOnTouchListener(null);
             swipeListener = null;
@@ -333,17 +334,11 @@ public class SwipeDeck extends FrameLayout {
 
 
     private void setupTopCard() {
-
-        int childCount = getChildCount();
-        final View child;
         //TODO: maybe find a better solution this is kind of hacky
         //if there's an extra card on screen that means the top card is still being animated
         //in that case setup the next card along
-        if (childCount == (NUMBER_OF_CARDS + 1)) {
-            child = getChildAt(getChildCount() - 2);
-        } else {
-            child = getChildAt(getChildCount() - 1);
-        }
+        int childOffset = getChildCount() - NUMBER_OF_CARDS + 1;
+        final View child = getChildAt(getChildCount() - childOffset);
 
         //this calculation is to get the correct position in the adapter of the current top card
         //the card position on setup top card is currently always the bottom card in the view
