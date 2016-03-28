@@ -1,12 +1,15 @@
 package com.daprlabs.cardstack;
 
 import android.animation.Animator;
+import android.text.LoginFilter;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewPropertyAnimator;
 import android.view.animation.OvershootInterpolator;
+
+import java.util.ArrayList;
 
 /**
  * Created by aaron on 4/12/2015.
@@ -30,6 +33,13 @@ public class SwipeListener implements View.OnTouchListener {
     private boolean deactivated;
     private View rightView;
     private View leftView;
+
+
+    //new animation vars
+    private ArrayList<View> underCards;
+    private int cardSpacing;
+    private int xScale;
+    private String TAG = "SwipeListener";
 
 
     public SwipeListener(View card, final SwipeCallback callback, float initialX, float initialY, float rotation, float opacityEnd) {
@@ -116,6 +126,8 @@ public class SwipeListener implements View.OnTouchListener {
 
                 card.setX(posX);
                 card.setY(posY);
+
+                animateUnderCards(posX, card.getWidth());
 
                 //card.setRotation
                 float distobjectX = posX - initialX;
@@ -259,6 +271,22 @@ public class SwipeListener implements View.OnTouchListener {
 
     public void setLeftView(View image) {
         this.leftView = image;
+    }
+
+    public void setUnderCardsWithOffset(ArrayList<View> underCards, int cardSpacing, int xScale) {
+        this.underCards = underCards;
+        this.cardSpacing = cardSpacing;
+        this.xScale = xScale;
+    }
+
+    //animate under cards by 0 - 100% of card spacing
+    private void animateUnderCards(float xVal, int cardWidth){
+        // adjust xVal to middle of card instead of left
+        //parent width 1080
+        float xValMid = xVal + (cardWidth / 2);
+        
+
+
     }
 
     public interface SwipeCallback {
