@@ -263,7 +263,11 @@ public class SwipeDeck extends FrameLayout {
             addViewInLayout(c, -1, params, true);
             int itemWidth = getWidth() - (paddingLeft + paddingRight);
             int itemHeight = getHeight() - (paddingTop + paddingBottom);
-            c.measure(MeasureSpec.EXACTLY | itemWidth, MeasureSpec.EXACTLY | itemHeight); //MeasureSpec.UNSPECIFIED
+            
+            int widthMeasureSpec = MeasureSpec.makeMeasureSpec(itemWidth, MeasureSpec.AT_MOST);
+            int heightMeasureSpec = MeasureSpec.makeMeasureSpec(itemHeight, MeasureSpec.AT_MOST);
+
+            c.measure(widthMeasureSpec, heightMeasureSpec);
 
             //ensure that if there's a left and right image set their alpha to 0 initially
             //alpha animation is handled in the swipe listener
