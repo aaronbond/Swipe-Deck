@@ -1,11 +1,11 @@
 package com.daprlabs.cardstack;
 
 import android.animation.Animator;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewPropertyAnimator;
+import android.view.animation.Animation;
 import android.view.animation.OvershootInterpolator;
 
 /**
@@ -251,6 +251,16 @@ public class SwipeListener implements View.OnTouchListener {
                 .x(parentWidth * 2)
                 .y(0)
                 .rotation(30);
+    }
+
+    public ViewPropertyAnimator animateOffScreenTop(int duration) {
+        return card.animate()
+            .setDuration(duration)
+            .translationYBy(-parent.getHeight());
+    }
+
+    public void animate(Animation animation) {
+        card.startAnimation(animation);
     }
 
     public void setRightView(View image) {
