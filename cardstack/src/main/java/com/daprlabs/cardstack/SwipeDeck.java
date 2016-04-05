@@ -471,7 +471,7 @@ public class SwipeDeck extends FrameLayout {
         }
     }
 
-    public void removeTopCardWithOffScreenTopAnimation() {
+    public int removeTopCardWithOffScreenTopAnimation() {
         int childCount = getChildCount();
         if (childCount > 0 && getChildCount() < (NUMBER_OF_CARDS + 1)) {
             if (swipeListener != null) {
@@ -479,9 +479,10 @@ public class SwipeDeck extends FrameLayout {
                     removeTopCardOnAnimationEndAnimatorListener);
             }
         }
+        return nextAdapterCard - getChildCount();
     }
 
-    public void removeTopCardWithCustomAnimation(Animation animation) {
+    public int removeTopCardWithCustomAnimation(Animation animation) {
         int childCount = getChildCount();
         if (childCount > 0 && getChildCount() < (NUMBER_OF_CARDS + 1)) {
             if (swipeListener != null) {
@@ -501,6 +502,7 @@ public class SwipeDeck extends FrameLayout {
                     swipeListener.animate(animation);
             }
         }
+        return nextAdapterCard - getChildCount();
     }
 
     public void setPositionCallback(CardPositionCallback callback) {
