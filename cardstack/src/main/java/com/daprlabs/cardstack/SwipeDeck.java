@@ -517,7 +517,14 @@ public class SwipeDeck extends FrameLayout {
         rightImageResource = imageResource;
     }
 
+    public View getTopView() {
+        int childOffset = getChildCount() - NUMBER_OF_CARDS + 1;
+        return getChildAt(getChildCount() - childOffset);
+    }
 
+    public int getCurrentPositionInAdapter() {
+        return nextAdapterCard - getChildCount();
+    }
 
     public interface SwipeEventCallback {
         //returning the object position in the adapter
