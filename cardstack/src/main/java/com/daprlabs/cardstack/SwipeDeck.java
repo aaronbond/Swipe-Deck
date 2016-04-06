@@ -98,6 +98,7 @@ public class SwipeDeck extends FrameLayout {
 
             @Override public void onAnimationEnd(Animator animation) {
                 removeTopCard();
+                addNextCard();
             }
 
             @Override public void onAnimationCancel(Animator animation) {
@@ -420,7 +421,7 @@ public class SwipeDeck extends FrameLayout {
     public void swipeTopCardLeft(int duration) {
 
         int childCount = getChildCount();
-        if (childCount > 0 && getChildCount() < (NUMBER_OF_CARDS + 1)) {
+        if (childCount > 0 && getChildCount() < (NUMBER_OF_CARDS + 1) && swipeListener != null) {
             swipeListener.animateOffScreenLeft(duration).setListener(new Animator.AnimatorListener() {
                 @Override public void onAnimationStart(Animator animation) {
 
@@ -447,7 +448,7 @@ public class SwipeDeck extends FrameLayout {
 
     public void swipeTopCardRight(int duration) {
         int childCount = getChildCount();
-        if (childCount > 0 && getChildCount() < (NUMBER_OF_CARDS + 1)) {
+        if (childCount > 0 && getChildCount() < (NUMBER_OF_CARDS + 1) && swipeListener != null) {
             swipeListener.animateOffScreenRight(duration).setListener(new Animator.AnimatorListener() {
                 @Override public void onAnimationStart(Animator animation) {
 
@@ -473,34 +474,31 @@ public class SwipeDeck extends FrameLayout {
 
     public int removeTopCardWithOffScreenTopAnimation() {
         int childCount = getChildCount();
-        if (childCount > 0 && getChildCount() < (NUMBER_OF_CARDS + 1)) {
-            if (swipeListener != null) {
+        if (childCount > 0 && getChildCount() < (NUMBER_OF_CARDS + 1) && swipeListener != null) {
                 swipeListener.animateOffScreenTop(400).setListener(
                     removeTopCardOnAnimationEndAnimatorListener);
-            }
         }
         return nextAdapterCard - getChildCount();
     }
 
     public int removeTopCardWithCustomAnimation(Animation animation) {
         int childCount = getChildCount();
-        if (childCount > 0 && getChildCount() < (NUMBER_OF_CARDS + 1)) {
-            if (swipeListener != null) {
-                animation.setAnimationListener(new Animation.AnimationListener() {
+        if (childCount > 0 && getChildCount() < (NUMBER_OF_CARDS + 1) && swipeListener != null) {
+            animation.setAnimationListener(new Animation.AnimationListener() {
                                                    @Override public void onAnimationStart(Animation animation) {
 
                                                    }
 
                                                    @Override public void onAnimationEnd(Animation animation) {
                                                         removeTopCard();
+                                                        addNextCard();
                                                    }
 
                                                    @Override public void onAnimationRepeat(Animation animation) {
 
                                                    }
                                                });
-                    swipeListener.animate(animation);
-            }
+            swipeListener.animate(animation);
         }
         return nextAdapterCard - getChildCount();
     }
