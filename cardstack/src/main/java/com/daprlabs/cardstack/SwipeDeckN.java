@@ -15,52 +15,12 @@ import java.util.ArrayList;
  */
 public class SwipeDeckN extends FrameLayout {
 
-    //Swipe Deck Flags
-    private static int NUMBER_OF_CARDS;
-    private float ROTATION_DEGREES;
-    private float CARD_SPACING;
-    private boolean RENDER_ABOVE;
-    private boolean RENDER_BELOW;
-    private float OPACITY_END;
 
-    //Swipe Deck container attributes
-    private int paddingRight;
-    private int paddingTop;
-    private int paddingBottom;
-    private int paddingLeft;
-
-    //Deck
-    private Deck deck;
-
-    private boolean hardwareAccelerationEnabled = true;
-    private Adapter mAdapter;
-
-    public SwipeDeckN(Context context, AttributeSet attrs) {
-        super(context, attrs);
-
-        //set clipping of view parent to false so cards render outside their view boundary
-        //make sure not to clip to padding
-        setClipToPadding(false);
-        setClipChildren(false);
+    public SwipeDeckN(Context context) {
+        super(context);
     }
 
-    /**
-     * Set Hardware Acceleration Enabled.
-     *
-     * @param accel
-     */
-    public void setHardwareAccelerationEnabled(Boolean accel) {
-        this.hardwareAccelerationEnabled = accel;
-    }
 
-    public void setAdapter(Adapter mAdapter) {
-        this.mAdapter = mAdapter;
-    }
-
-    public void setSelection(int position){
-        throw new UnsupportedOperationException("not yet implemented");
-    }
-    
 
 
 }
