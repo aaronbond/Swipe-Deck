@@ -3,12 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
     android:layout_gravity="center"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     card_view:cardCornerRadius="5dp"
     android:layout_margin="8dp"
     android:gravity="center_horizontal"
-    android:padding="25dp">
+    android:padding="0dp"
+    >
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical" android:layout_width="match_parent"
