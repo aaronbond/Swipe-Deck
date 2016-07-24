@@ -6,10 +6,8 @@ import android.content.res.TypedArray;
 import android.database.DataSetObserver;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.os.Parcelable;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
@@ -296,41 +294,41 @@ public class SwipeDeck extends FrameLayout {
         restoreInstanceState = false;
     }
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-
-        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
-        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
-        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
-        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-
-        int width;
-        int height;
-
-        if (widthMode == MeasureSpec.EXACTLY) {
-            //Must be this size
-            width = widthSize;
-        } else if (widthMode == MeasureSpec.AT_MOST) {
-            //Can't be bigger than...
-            width = widthSize;
-        } else {
-            //Be whatever you want
-            width = widthSize;
-        }
-
-        //Measure Height
-        if (heightMode == MeasureSpec.EXACTLY) {
-            //Must be this size
-            height = heightSize;
-        } else if (heightMode == MeasureSpec.AT_MOST) {
-            //Can't be bigger than...
-            height = heightSize;
-        } else {
-            //Be whatever you want
-            height = heightSize;
-        }
-        setMeasuredDimension(width, height);
-    }
+//    @Override
+//    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+//
+//        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+//        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+//        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+//        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+//
+//        int width;
+//        int height;
+//
+//        if (widthMode == MeasureSpec.EXACTLY) {
+//            //Must be this size
+//            width = widthSize;
+//        } else if (widthMode == MeasureSpec.AT_MOST) {
+//            //Can't be bigger than...
+//            width = widthSize;
+//        } else {
+//            //Be whatever you want
+//            width = widthSize;
+//        }
+//
+//        //Measure Height
+//        if (heightMode == MeasureSpec.EXACTLY) {
+//            //Must be this size
+//            height = heightSize;
+//        } else if (heightMode == MeasureSpec.AT_MOST) {
+//            //Can't be bigger than...
+//            height = heightSize;
+//        } else {
+//            //Be whatever you want
+//            height = heightSize;
+//        }
+//        setMeasuredDimension(width, height);
+//    }
 
 
     private void setupTopCard() {
