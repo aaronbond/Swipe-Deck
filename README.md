@@ -1,6 +1,11 @@
 # Swipe-Deck
 ## A Tinder style Swipeable deck view for Android
 
+##Note
+I Have re written this project from the ground up as SwipeDeck2 and it is available here: https://github.com/aaronbond/SwipeDeck2
+
+I initially hacked this together rather speedily beginning at a hackathon, as a result it wasn't really as maintainable and updateable as I would have liked. After getting almost daily emails and support requests for something I considered throwaway code I decided to re write and start again. So please if you're adventurous go and try out SwipeDeck2 and help me make it suitable for a wide range of use cases.
+
 ![Screenshot](https://fat.gfycat.com/PartialBitterHermitcrab.gif)
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Swipe--Deck-blue.svg?style=flat-square)](http://android-arsenal.com/details/1/2970)  [![Join the chat at https://gitter.im/aaronbond/Swipe-Deck](https://badges.gitter.im/aaronbond/Swipe-Deck.svg)](https://gitter.im/aaronbond/Swipe-Deck?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
