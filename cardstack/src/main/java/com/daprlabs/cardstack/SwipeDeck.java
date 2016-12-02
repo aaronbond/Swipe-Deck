@@ -1,18 +1,18 @@
 package com.daprlabs.cardstack;
 
+import android.animation.Animator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.DataSetObserver;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.Adapter;
 import android.widget.FrameLayout;
-
 import java.util.ArrayList;
 
 /**
@@ -50,6 +50,7 @@ public class SwipeDeck extends FrameLayout {
     private int leftImageResource;
     private int rightImageResource;
     private boolean cardInteraction;
+    private Animator.AnimatorListener removeTopCardOnAnimationEndAnimatorListener;
 
     public SwipeDeck(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -89,6 +90,25 @@ public class SwipeDeck extends FrameLayout {
         if (RENDER_BELOW) {
             ViewCompat.setTranslationZ(this, Float.MIN_VALUE);
         }
+
+        removeTopCardOnAnimationEndAnimatorListener = new Animator.AnimatorListener() {
+            @Override public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override public void onAnimationEnd(Animator animation) {
+                removeTopCard();
+                addNextCard();
+            }
+
+            @Override public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override public void onAnimationRepeat(Animator animation) {
+
+            }
+        };
     }
 
     /**
@@ -185,15 +205,12 @@ public class SwipeDeck extends FrameLayout {
         if (child != null) {
             child.setOnTouchListener(null);
             swipeListener = null;
-            //this will also check to see if cards are depleted
-            removeViewWaitForAnimation(child);
+            removeView(child);
+            //if there are no more children left after top card removal let the callback know
+            if (getChildCount() <= 0 && eventCallback != null) {
+                eventCallback.cardsDepleted();
+            }
         }
-    }
-
-    private void removeViewWaitForAnimation(View child) {
-        new RemoveViewOnAnimCompleted().execute(child);
-
-
     }
 
     @Override
@@ -404,27 +421,86 @@ public class SwipeDeck extends FrameLayout {
     public void swipeTopCardLeft(int duration) {
 
         int childCount = getChildCount();
-        if (childCount > 0 && getChildCount() < (NUMBER_OF_CARDS + 1)) {
-            swipeListener.animateOffScreenLeft(duration);
+        if (childCount > 0 && getChildCount() < (NUMBER_OF_CARDS + 1) && swipeListener != null) {
+            swipeListener.animateOffScreenLeft(duration).setListener(new Animator.AnimatorListener() {
+                @Override public void onAnimationStart(Animator animation) {
 
-            int positionInAdapter = nextAdapterCard - getChildCount();
-            removeTopCard();
-            if (eventCallback != null) eventCallback.cardSwipedLeft(positionInAdapter);
-            addNextCard();
+                }
+
+                @Override public void onAnimationEnd(Animator animation) {
+                    int positionInAdapter = nextAdapterCard - getChildCount();
+                    removeTopCard();
+                    if (eventCallback != null) eventCallback.cardSwipedLeft(positionInAdapter);
+                    addNextCard();
+                }
+
+                @Override public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
         }
 
     }
 
     public void swipeTopCardRight(int duration) {
         int childCount = getChildCount();
-        if (childCount > 0 && getChildCount() < (NUMBER_OF_CARDS + 1)) {
-            swipeListener.animateOffScreenRight(duration);
+        if (childCount > 0 && getChildCount() < (NUMBER_OF_CARDS + 1) && swipeListener != null) {
+            swipeListener.animateOffScreenRight(duration).setListener(new Animator.AnimatorListener() {
+                @Override public void onAnimationStart(Animator animation) {
 
-            int positionInAdapter = nextAdapterCard - getChildCount();
-            removeTopCard();
-            if (eventCallback != null) eventCallback.cardSwipedRight(positionInAdapter);
-            addNextCard();
+                }
+
+                @Override public void onAnimationEnd(Animator animation) {
+                    int positionInAdapter = nextAdapterCard - getChildCount();
+                    removeTopCard();
+                    if (eventCallback != null) eventCallback.cardSwipedRight(positionInAdapter);
+                    addNextCard();
+                }
+
+                @Override public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
         }
+    }
+
+    public int removeTopCardWithOffScreenTopAnimation() {
+        int childCount = getChildCount();
+        if (childCount > 0 && getChildCount() < (NUMBER_OF_CARDS + 1) && swipeListener != null) {
+                swipeListener.animateOffScreenTop(400).setListener(
+                    removeTopCardOnAnimationEndAnimatorListener);
+        }
+        return nextAdapterCard - getChildCount();
+    }
+
+    public int removeTopCardWithCustomAnimation(Animation animation) {
+        int childCount = getChildCount();
+        if (childCount > 0 && getChildCount() < (NUMBER_OF_CARDS + 1) && swipeListener != null) {
+            animation.setAnimationListener(new Animation.AnimationListener() {
+                                                   @Override public void onAnimationStart(Animation animation) {
+
+                                                   }
+
+                                                   @Override public void onAnimationEnd(Animation animation) {
+                                                        removeTopCard();
+                                                        addNextCard();
+                                                   }
+
+                                                   @Override public void onAnimationRepeat(Animation animation) {
+
+                                                   }
+                                               });
+            swipeListener.animate(animation);
+        }
+        return nextAdapterCard - getChildCount();
     }
 
     public void setPositionCallback(CardPositionCallback callback) {
@@ -437,6 +513,15 @@ public class SwipeDeck extends FrameLayout {
 
     public void setRightImage(int imageResource) {
         rightImageResource = imageResource;
+    }
+
+    public View getTopView() {
+        int childOffset = getChildCount() - NUMBER_OF_CARDS + 1;
+        return getChildAt(getChildCount() - childOffset);
+    }
+
+    public int getCurrentPositionInAdapter() {
+        return nextAdapterCard - getChildCount();
     }
 
     public interface SwipeEventCallback {
@@ -457,26 +542,6 @@ public class SwipeDeck extends FrameLayout {
         void yPos(Float y);
     }
 
-    private int AnimationTime = 160;
-    private class RemoveViewOnAnimCompleted extends AsyncTask<View, Void, View> {
-
-        @Override
-        protected View doInBackground(View... params) {
-            android.os.SystemClock.sleep(AnimationTime);
-            return params[0];
-        }
-
-        @Override
-        protected void onPostExecute(View view) {
-            super.onPostExecute(view);
-            removeView(view);
-
-            //if there are no more children left after top card removal let the callback know
-            if (getChildCount() <= 0 && eventCallback != null) {
-                eventCallback.cardsDepleted();
-            }
-        }
-    }
 }
 
 
