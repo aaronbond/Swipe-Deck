@@ -1,7 +1,7 @@
 # Swipe-Deck
 ## A Tinder style Swipeable deck view for Android
 
-##Note
+## Note
 I Have re written this project from the ground up as SwipeDeck2 and it is available here: https://github.com/aaronbond/SwipeDeck2
 
 I initially hacked this together rather speedily beginning at a hackathon, as a result it wasn't really as maintainable and updateable as I would have liked. After getting almost daily emails and support requests for something I considered throwaway code I decided to re write and start again. So please if you're adventurous go and try out SwipeDeck2 and help me make it suitable for a wide range of use cases.
@@ -210,7 +210,7 @@ Now we simply give our card deck an adapter and perhaps a callback from our Acti
 
 # Features
 
-###Easily design cards and deck container in XML and have cards render over the top (or underneath) elements in your layout
+### Easily design cards and deck container in XML and have cards render over the top (or underneath) elements in your layout
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -245,7 +245,7 @@ Now we simply give our card deck an adapter and perhaps a callback from our Acti
 
 ![Screenshot](http://i.imgur.com/bijdPhg.png?1)
 
-###Indicator images for swiping left and right, simply add a left and right swipe view to your card layout and register their resource
+### Indicator images for swiping left and right, simply add a left and right swipe view to your card layout and register their resource
 id with swipe deck:
 ```xml
             <ImageView
@@ -276,7 +276,7 @@ id with swipe deck:
 
 ![Screenshot](http://i.imgur.com/j1Npxpn.png?1)
 
-###Programatically Swipe the top card left / right:
+### Programatically Swipe the top card left / right:
 
 ```java
         Button btn = (Button) findViewById(R.id.button);
